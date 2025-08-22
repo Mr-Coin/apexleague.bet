@@ -2,48 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* APEX Fantasy Football League Design System */
+/* APEX Fantasy Football League - Black & Gold Design System */
 
 @layer base {
   :root {
-    /* Core APEX Color Palette */
-    --background: 217 24% 6%;  /* #0f1116 */
-    --foreground: 218 14% 91%; /* #e8ebf3 */
+    /* Core Black & Gold Color Palette */
+    --background: 0 0% 4%;      /* #0a0a0a - Deep black */
+    --foreground: 45 15% 92%;   /* #f0eed8 - Warm white */
     
-    --card: 217 30% 8%;        /* #141827 */
-    --card-foreground: 218 14% 91%;
+    --card: 0 0% 8%;            /* #141414 - Rich black */
+    --card-foreground: 45 15% 92%;
     
-    --popover: 217 30% 8%;
-    --popover-foreground: 218 14% 91%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 45 15% 92%;
     
-    --primary: 218 100% 70%;   /* #6aa3ff brand blue */
-    --primary-foreground: 217 24% 6%;
+    --primary: 45 100% 55%;     /* #ffc700 - Pure gold */
+    --primary-foreground: 0 0% 4%;
     
-    --secondary: 217 30% 8%;
-    --secondary-foreground: 218 14% 91%;
+    --secondary: 0 0% 12%;      /* #1f1f1f - Charcoal */
+    --secondary-foreground: 45 15% 92%;
     
-    --muted: 217 30% 8%;
-    --muted-foreground: 218 12% 69%; /* #a7b0c5 */
+    --muted: 0 0% 12%;
+    --muted-foreground: 45 8% 70%;  /* #b8b59f - Muted gold */
     
-    --accent: 140 72% 76%;     /* #8ef5a4 accent green */
-    --accent-foreground: 217 24% 6%;
+    --accent: 38 90% 65%;       /* #f4c430 - Bright amber */
+    --accent-foreground: 0 0% 4%;
     
     --destructive: 0 84% 60%;
-    --destructive-foreground: 218 14% 91%;
+    --destructive-foreground: 45 15% 92%;
     
-    --border: 218 32% 18%;     /* #26304a */
-    --input: 218 32% 18%;
-    --ring: 218 100% 70%;
+    --border: 45 20% 18%;       /* #322e1a - Dark gold border */
+    --input: 45 20% 18%;
+    --ring: 45 100% 55%;
     
-    /* APEX Brand Gradients */
+    /* Black & Gold Brand Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-    --gradient-bg: radial-gradient(1200px 600px at 70% -10%, hsl(217 40% 14%) 0%, hsl(var(--background)) 60%);
-    --gradient-panel: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(217 35% 9%) 100%);
+    --gradient-bg: radial-gradient(1200px 600px at 70% -10%, hsl(0 0% 8%) 0%, hsl(var(--background)) 60%);
+    --gradient-panel: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(0 0% 6%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45 100% 55%) 0%, hsl(38 90% 65%) 50%, hsl(42 85% 48%) 100%);
+    --gradient-black: linear-gradient(135deg, hsl(0 0% 12%) 0%, hsl(0 0% 8%) 50%, hsl(0 0% 4%) 100%);
     
-    /* Shadows & Effects */
-    --shadow-card: 0 10px 30px hsl(217 24% 6% / 0.25);
-    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.15);
-    --shadow-accent: 0 4px 20px hsl(var(--accent) / 0.2);
+    /* Luxury Shadows & Effects */
+    --shadow-card: 0 20px 50px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 60px hsl(var(--primary) / 0.25);
+    --shadow-accent: 0 8px 32px hsl(var(--accent) / 0.3);
+    --shadow-gold-inset: inset 0 2px 4px hsl(45 100% 80% / 0.1);
     
     --radius: 0.875rem;
   }

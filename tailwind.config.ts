@@ -56,12 +56,15 @@ export default {
 			backgroundImage: {
 				'hero-gradient': 'var(--gradient-hero)',
 				'panel-gradient': 'var(--gradient-panel)',
-				'bg-gradient': 'var(--gradient-bg)'
+				'bg-gradient': 'var(--gradient-bg)',
+				'gold-gradient': 'var(--gradient-gold)',
+				'black-gradient': 'var(--gradient-black)'
 			},
 			boxShadow: {
 				'card': 'var(--shadow-card)',
 				'glow': 'var(--shadow-glow)',
-				'accent': 'var(--shadow-accent)'
+				'accent': 'var(--shadow-accent)',
+				'gold-inset': 'var(--shadow-gold-inset)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
