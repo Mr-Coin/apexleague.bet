@@ -7,15 +7,23 @@ import { Download } from "lucide-react";
 const KEEPERS = {
   "2025": [
     ["IL DUCE", "David Rasmussen", "Jayden Daniels", "QB", "7", ""],
-    ["IL DUCE", "David Rasmussen", "Bucky Irving", "RB", "12", ""]
+    ["IL DUCE", "David Rasmussen", "Bucky Irving", "RB", "12", ""],
+    ["Big Mike and the boys", "Brennan Champion", "Jackson Smith-Njigba", "WR", "9", ""],
+    ["Geriatric Unit", "Kevin Killeen", "Courtland Sutton", "WR", "7", ""],
+    ["Painted Nail Zesty Boys 💅", "Henry Erzinger", "Ladd McConkey", "WR", "8", ""],
+    ["Painted Nail Zesty Boys 💅", "Henry Erzinger", "David Njoku", "TE", "9", ""],
+    ["Team Smith", "Jake Smith", "Brian Thomas Jr", "WR", "9", ""],
+    ["Team Smith", "Jake Smith", "Chubba Hubbard", "RB", "10", ""],
+    ["Olave Garden", "Joseph Ross", "Brock Purdy", "QB", "8", ""],
+    ["Olave Garden", "Joseph Ross", "Brandon Aubrey", "K", "9", ""]
   ],
   "2024": [
-    ["IL DUCE", "David Rasmussen", "Tyjae Speers", "RB", "14", ""],
+    ["IL DUCE", "David Rasmussen", "Tyjae Spears", "RB", "14", ""],
     ["Big Mike and the boys", "Brennan Champion", "Nico Collins", "WR", "12", ""],
     ["Big Mike and the boys", "Brennan Champion", "Jared Goff", "QB", "11", ""],
     ["Geriatric Unit", "Kevin Killeen", "Raheem Mostert", "RB", "15", ""],
     ["Painted Nail Zesty Boys 💅", "Henry Erzinger", "Ravens Defense", "DST", "14", ""],
-    ["Gully", "Matt Gullickson", "Kyern Williams", "RB", "16", ""],
+    ["Gully", "Matt Gullickson", "Kyren Williams", "RB", "16", ""],
     ["Gully", "Matt Gullickson", "Harrison Butker", "K", "9", ""],
     ["Josh Downs Syndrome", "Stuart Alvey", "Aaron Rodgers", "QB", "11", ""],
     ["Dark Web Bitcoin Miners", "Cole Thomas", "David Montgomery", "RB", "7", ""],
