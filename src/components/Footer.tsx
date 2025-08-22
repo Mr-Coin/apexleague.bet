@@ -125,7 +125,7 @@ export default function Footer() {
               <div className="w-2 h-2 bg-primary rounded-full"></div>
               <span className="text-muted-foreground">Live</span>
             </div>
-            <span className="text-muted-foreground">Last updated: Aug 11, 2025</span>
+            <span className="text-muted-foreground">Last updated: Aug 22, 2025</span>
           </div>
         </div>
       </div>
