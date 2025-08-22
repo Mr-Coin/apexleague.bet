@@ -20,8 +20,12 @@ export default function ApexHeader({ activeTab, onTabChange, onLogout }: ApexHea
         <div className="flex items-center justify-between gap-6">
           {/* Logo and Title */}
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-hero-gradient rounded-2xl flex items-center justify-center shadow-accent">
-              <span className="text-xl font-black text-primary-foreground">APX</span>
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-accent overflow-hidden">
+              <img 
+                src="/league-logo.jpg" 
+                alt="APEX League Logo" 
+                className="w-full h-full object-cover"
+              />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-foreground">APEX</h1>

@@ -53,8 +53,12 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
     <div className="fixed inset-0 bg-gradient-to-br from-background via-card to-background flex items-center justify-center p-4 z-50">
       <Card className="w-full max-w-md shadow-glow border-border/50">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-hero-gradient rounded-2xl flex items-center justify-center shadow-accent">
-            <span className="text-2xl font-black text-primary-foreground">APX</span>
+          <div className="mx-auto w-16 h-16 rounded-2xl flex items-center justify-center shadow-accent overflow-hidden">
+            <img 
+              src="/league-logo.jpg" 
+              alt="APEX League Logo" 
+              className="w-full h-full object-cover"
+            />
           </div>
           <CardTitle className="text-2xl text-foreground">Enter league password</CardTitle>
           <CardDescription className="text-muted-foreground">
