@@ -94,7 +94,7 @@ export const TEAMS: Team[] = [
     id: "ceedeez-nuts",
     name: "CeeDeez Nuts",
     owner: "Sam Lohmar",
-    logo: "/tbd.jpg",
+    logo: "/ceedeez.jpg",
     ownerPhoto: "/placeholder.svg", // Add Sam's photo when available
     description: "A team that's not afraid to take risks and make bold moves.",
     ownerBlurb: "Sam Lohmar embraces the unpredictable nature of fantasy football, making bold decisions that often pay off in big ways.",
@@ -124,7 +124,7 @@ export const TEAMS: Team[] = [
     id: "dark-web",
     name: "Dark Web Bitcoin Miners",
     owner: "Cole Thomas",
-    logo: "/tbd.jpg",
+    logo: "/dwbm.jpg",
     ownerPhoto: "/cole.png",
     description: "Mining for fantasy gold with cutting-edge strategies.",
     ownerBlurb: "Cole Ellsworth Thomas, the Analyst of Roster Integrity, brings his analytical expertise to fantasy football. His deep understanding of player performance and market trends makes him a formidable opponent.",
