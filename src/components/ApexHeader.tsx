@@ -7,10 +7,10 @@ interface ApexHeaderProps {
 }
 
 const tabs = [
-  { id: 'rules', label: 'Rules' },
+  { id: 'home', label: 'Home' },
+  { id: 'teams', label: 'Teams' },
   { id: 'keepers', label: 'Keepers' },
   { id: 'history', label: 'History' },
-  { id: 'extras', label: 'Extras' },
 ];
 
 export default function ApexHeader({ activeTab, onTabChange, onLogout }: ApexHeaderProps) {

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -9,6 +9,31 @@ export default function RulesSection() {
 
   return (
     <div className="space-y-6">
+      {/* Draft Day Section - Prominently Featured */}
+      <Card className="bg-gradient-to-r from-primary/20 via-primary/10 to-accent/20 border-primary/30 shadow-glow">
+        <CardHeader className="text-center pb-4">
+          <CardTitle className="text-2xl text-primary font-bold">Draft Day</CardTitle>
+          <CardDescription className="text-lg text-primary/80 font-semibold">
+            APEX Fantasy Football Draft
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="text-center space-y-4">
+          <div className="text-center">
+            <p className="text-lg text-foreground font-medium mb-3">
+              Mon, Aug 25, 2025 • 7:30–9:00pm (America/Chicago)
+            </p>
+            <Button 
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-200"
+              onClick={() => window.open('https://meet.google.com/cvq-pcru-tcu', '_blank')}
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Google Meet Link
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card className="bg-panel-gradient border-border shadow-card">
         <CardHeader>
           <CardTitle className="text-foreground">League Rules</CardTitle>
@@ -77,6 +102,32 @@ export default function RulesSection() {
 
       <Card className="bg-panel-gradient border-border shadow-card">
         <CardHeader>
+          <CardTitle className="text-foreground">Commissioner</CardTitle>
+          <CardDescription className="text-muted-foreground">
+            The man behind the madness
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-start gap-6">
+            <div className="flex-shrink-0">
+              <img 
+                src="/commish.png" 
+                alt="David Rasmussen - Commissioner" 
+                className="w-32 h-32 rounded-full object-cover shadow-lg"
+              />
+            </div>
+            <div className="flex-1">
+              <h4 className="text-xl font-semibold text-foreground mb-3">David Rasmussen</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                David Rasmussen, our fantasy football commish, kicked off this league two years ago dreaming of glory. That dream's a total bust so far, but he keeps grinding through the seasons. From Chicago's bullet-riddled hellhole, he dodges gang shootouts on his commute to slave away for banking tyrant Jamie Dimon—who's now yanked him back to the office five days a week, gutting his time to manage his squad, IL DUCE.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-panel-gradient border-border shadow-card">
+        <CardHeader>
           <CardTitle className="text-foreground">Roster Integrity</CardTitle>
           <CardDescription className="text-muted-foreground">
             Organization for the Vigilance and Repression of Anti-Competitive Activity
@@ -88,16 +139,20 @@ export default function RulesSection() {
         <CardContent>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="text-center">
-              <div className="w-32 h-32 bg-muted rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-muted-foreground">Photo</span>
-              </div>
+              <img 
+                src="/brennan.png" 
+                alt="Brennan Joseph Champion - Chair" 
+                className="w-32 h-32 rounded-full mx-auto mb-4 object-cover shadow-lg"
+              />
               <h4 className="font-semibold text-foreground">Brennan Joseph Champion</h4>
               <p className="text-sm text-muted-foreground">Chair</p>
             </div>
             <div className="text-center">
-              <div className="w-32 h-32 bg-muted rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-muted-foreground">Photo</span>
-              </div>
+              <img 
+                src="/cole.png" 
+                alt="Cole Ellsworth Thomas - Analyst" 
+                className="w-32 h-32 rounded-full mx-auto mb-4 object-cover shadow-lg"
+              />
               <h4 className="font-semibold text-foreground">Cole Ellsworth Thomas</h4>
               <p className="text-sm text-muted-foreground">Analyst</p>
             </div>
