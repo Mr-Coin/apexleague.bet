@@ -28,7 +28,7 @@ export const PROPOSALS: Proposal[] = [
     proposedBy: "Cole Thomas",
     proposedDate: new Date('2025-08-22'),
     votingDeadline: new Date('2025-09-10'),
-    category: 'league-token'
+    category: 'other'
   }
 ];
 
