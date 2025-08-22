@@ -25,10 +25,10 @@ export const PROPOSALS: Proposal[] = [
     title: "Create $APX Token with Liquidity Pool",
     description: "Proposal to create $APX Token! Everyone pools $100 each for a slick liquidity pool to pump this thing! 🚀\n\nTokenomics:\n\n1. 50M total supply (capped): 1M $APX per member (12M for 12 members), 37M for prize pool, 1M for liquidity pool.\n\n2. Prize pool: 37M $APX Yearly rewards paid from prize pool:\n   ◦ 500k champ\n   ◦ 250k 2nd\n   ◦ 100k 3rd\n   ◦ 100k last place\n\n3. Liquidity pool: 1M token allocation backed by $100 each from 12 members for a pool value of $1,200, valuing each token at $0.0012. Each team starts with 1M tokens, so your initial stack is worth $1,200 (1M × $0.0012).\n\n4. Utility: Use $APX to sweeten player trades, side bets, buying waiver position, anything you want!",
     status: 'active',
-    proposedBy: "Cole Thomas",
+    proposedBy: "Brennan Champion",
     proposedDate: new Date('2025-08-22'),
     votingDeadline: new Date('2025-09-10'),
-    category: 'league-token'
+    category: 'format-change'
   }
 ];
 
