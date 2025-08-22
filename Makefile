@@ -24,3 +24,9 @@ stop:
 	@echo "Stopping development server..."
 	@-pkill -f "vite" || true
 	@echo "Development server stopped!"
+
+# Build the project for deployment
+build:
+	@echo "Building project for deployment..."
+	npm run build
+	@echo "Build complete! Check the docs/ folder for deployment files."

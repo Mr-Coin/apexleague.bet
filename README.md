@@ -44,6 +44,46 @@ We've provided convenient Makefile commands for easy development:
 - **`make install`** - Install all project dependencies
 - **`make start`** - Start fresh development server with updated dependencies
 - **`make stop`** - Stop the development server
+- **`make build`** - Build the project for deployment
+
+## 🌐 Deployment
+
+### Quick Deployment
+
+Use the automated deployment script:
+
+```bash
+./deploy.sh
+```
+
+This script will:
+1. Install dependencies
+2. Build the project
+3. Commit and push the built files
+4. Guide you through GitHub Pages setup
+
+### Manual Deployment
+
+1. **Build the project**
+   ```bash
+   npm run build
+   ```
+
+2. **Configure GitHub Pages**
+   - Go to your repository Settings > Pages
+   - Select "Deploy from a branch"
+   - Choose "main" branch and "/docs" folder
+   - Click Save
+
+3. **Deploy updates**
+   ```bash
+   npm run build
+   git add docs/
+   git commit -m "Update website"
+   git push origin main
+   ```
+
+For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md).
 
 ## 📝 Updating Team Information
 

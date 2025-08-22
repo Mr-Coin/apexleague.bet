@@ -11,6 +11,7 @@ const tabs = [
   { id: 'teams', label: 'Teams' },
   { id: 'keepers', label: 'Keepers' },
   { id: 'history', label: 'History' },
+  { id: 'proposals', label: 'Proposals' },
 ];
 
 export default function ApexHeader({ activeTab, onTabChange, onLogout }: ApexHeaderProps) {

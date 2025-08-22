@@ -5,6 +5,7 @@ import RulesSection from "@/components/RulesSection";
 import TeamsSection from "@/components/TeamsSection";
 import KeepersSection from "@/components/KeepersSection";
 import HistorySection from "@/components/HistorySection";
+import ProposalsSection from "@/components/ProposalsSection";
 import DraftSection from "@/components/DraftSection";
 import Footer from "@/components/Footer";
 
@@ -19,7 +20,7 @@ const Index = () => {
 
     // Handle hash navigation
     const hash = window.location.hash.slice(1);
-    if (hash && ['home', 'teams', 'keepers', 'history'].includes(hash)) {
+    if (hash && ['home', 'teams', 'keepers', 'history', 'proposals'].includes(hash)) {
       setActiveTab(hash);
     }
   }, []);
@@ -51,6 +52,8 @@ const Index = () => {
         return <KeepersSection />;
       case "history":
         return <HistorySection />;
+      case "proposals":
+        return <ProposalsSection />;
       default:
         return (
           <div className="space-y-6">
