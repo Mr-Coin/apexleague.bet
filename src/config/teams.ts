@@ -24,7 +24,7 @@ export const TEAMS: Team[] = [
     id: "big-mike",
     name: "Big Mike and the boys",
     owner: "Brennan Champion",
-    logo: "/tbd.jpg",
+    logo: "/bigmike.jpg",
     ownerPhoto: "/brennan.png",
     description: "All hat and no cattle, Brennan is a Fort Worth translpant.",
     ownerBlurb: "Brennan Joseph Champion has always had a knack for bending the rules just enough to slip through the cracks, so it was only natural he'd slither his way into a career as a lawyer—chasing ambulances and loopholes with equal fervor. As a staunch Catholic, he once sought divine counsel on his shady profession, only for God to quip, 'Do you know why I created snakes before lawyers? Because I needed the practice.'",
@@ -34,7 +34,7 @@ export const TEAMS: Team[] = [
     id: "geriatric-unit",
     name: "Geriatric Unit",
     owner: "Kevin Killeen",
-    logo: "/tbd.jpg",
+    logo: "/unit-logo.jpg",
     ownerPhoto: "/kevin.png", 
     description: "Husband and father with little time for fantasy football... leading to many losses.",
     ownerBlurb: "Kevin Killeen is a master musician with a knack for the trombone—once he starts blowing that horn, the ladies' panties don't just drop, they drip.  A man oozing charisma from every pore, Kevin once sweet-talked a prostitute into paying him after their session, turning the oldest profession into his personal ATM. But now, as a devoted father of two, he's traded those risky back-alley thrills for the safer highs of dad jokes",
@@ -107,7 +107,7 @@ export const TEAMS: Team[] = [
     logo: "/tbd.jpg",
     ownerPhoto: "/joe.png", // Add Joseph's photo when available
     description: "His Masters in Teaching has not helped him explain his failiing fantasy team.",
-    ownerBlurb: "Joe Ross ain't here to play nice—if you cross him, he'll swipe your girl faster than a stall door slams shut at Monon Bell. This savage relishes dropping deuces in Cole's backyard, turning them into gourmet treats for the dog Ralph. Skip buying his damage waiver, and you're dead to him—no friends, no mercy. These days, Joe's channeling that ruthless energy as a lawyer, locking up pedos left and right, proving he's the hero we didn't know we needed... or deserved.",
+    ownerBlurb: "Joe Ross ain't here to play nice—if you cross him, he'll swipe your girl faster than a stall door slams shut at Monon Bell. This savage relishes dropping deuces in Cole's backyard, turning them into gourmet treats for the dog Ralph. Skip buying his damage waiver, and you're dead to him. These days, Joe's channeling that ruthless energy as a lawyer, locking up pedos left and right, proving he's the hero we didn't know we needed... or deserved.",
     draftPosition: 11
   },
   {
@@ -126,8 +126,8 @@ export const TEAMS: Team[] = [
     owner: "Cole Thomas",
     logo: "/dwbm.jpg",
     ownerPhoto: "/cole.png",
-    description: "Mining for fantasy gold with cutting-edge strategies.",
-    ownerBlurb: "Cole Ellsworth Thomas is a die-hard crypto bro who thrives on hoarding fake internet moneys. He plans on retiring either on a yacht, or in a cardboard box next to the homeless shelter. This year Cole became a father, leading him to ditching the red-pill rage for rainbow flags, vowing to become a full-blown feminist. Who knew changing a few diapers could make a man think a woman can be President?",
+    description: "Does not believe in paper money or the moon landing.",
+    ownerBlurb: "Cole Ellsworth Thomas is a die-hard crypto bro who thrives on hoarding fake internet moneys. He plans on retiring either on a yacht, or in a cardboard box next to the homeless shelter. This year Cole became the father of a baby girl, leading him to ditch the red-pill rage for rainbow flags, vowing to become a full-blown feminist. Who knew changing a few diapers could convince a man that a woman can be President?",
     draftPosition: 3
   }
 ];
