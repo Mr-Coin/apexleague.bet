@@ -16,7 +16,7 @@ export const TEAMS: Team[] = [
     owner: "David Rasmussen",
     logo: "/tbd.jpg", // You can add team logos here
     ownerPhoto: "/commish.png",
-    description: "The commissioner's squad, always grinding through the seasons.",
+    description: "The commissioner's squad, always grinding and potentially cheating.",
     ownerBlurb: "David Rasmussen, our fantasy football commish, kicked off this league two years ago dreaming of glory. That dream's a total bust so far, but he keeps grinding through the seasons. From Chicago's bullet-riddled hellhole, he dodges gang shootouts on his commute to slave away for banking tyrant Jamie Dimon—who's now yanked him back to the office five days a week, gutting his time to manage his squad, IL DUCE.",
     draftPosition: 10
   },
@@ -26,7 +26,7 @@ export const TEAMS: Team[] = [
     owner: "Brennan Champion",
     logo: "/tbd.jpg",
     ownerPhoto: "/brennan.png",
-    description: "All hat and no cattle, Brennan is Forte Worth Translpant.",
+    description: "All hat and no cattle, Brennan is a Fort Worth translpant.",
     ownerBlurb: "Brennan Joseph Champion has always had a knack for bending the rules just enough to slip through the cracks, so it was only natural he'd slither his way into a career as a lawyer—chasing ambulances and loopholes with equal fervor. As a staunch Catholic, he once sought divine counsel on his shady profession, only for God to quip, 'Do you know why I created snakes before lawyers? Because I needed the practice.'",
     draftPosition: 7
   },
@@ -56,7 +56,7 @@ export const TEAMS: Team[] = [
     owner: "Jake Smith",
     logo: "/tbd.jpg",
     ownerPhoto: "/jake.png",
-    description: "Consistent and reliable, this team always puts up a fight.",
+    description: "Dreams of a single night spent with Britney Mahomes.",
     ownerBlurb: "Jake Smith hails from the cushy confines of Overland Park in Kansas City, where he's a rabid devotee of all things KC—basking in the glory of multiple Super Bowl parades and a World Series victory. But when it comes to fantasy football, Jake's trophy case is as barren as a Chiefs bandwagon before Mahomes, proving that even in the heartland of winners, some dudes are doomed to eternal bench-sitter blues.",
     draftPosition: 5
   },
@@ -76,7 +76,7 @@ export const TEAMS: Team[] = [
     owner: "Stuart Alvey",
     logo: "/tbd.jpg",
     ownerPhoto: "/stu.png", // Add Stuart's photo when available
-    description: "Creative team names and creative strategies on the field.",
+    description: "RIP Jim Irsay.",
     ownerBlurb: "Stuart Alvey, aka the future Beaver Baron of Noblesville, relishes his peaceful life far north of the Indianapolis chaos. A hardcore Colts fan, Stu loathes his team's endless mediocrity, tossing at night dreaming of a Super Bowl ring to soothe his playoff-deprived soul. Expecting another trash season for the Colts and his fantasy squad, he's pinning hopes on a holy trinity of titles from the Pacers, Colts, and Fever—just like the divine Trinity who graced him with his first sinful sacrament, transforming clumsy gropes into legendary bliss.",
     draftPosition: 9
   },
@@ -106,7 +106,7 @@ export const TEAMS: Team[] = [
     owner: "Joseph Ross",
     logo: "/tbd.jpg",
     ownerPhoto: "/joe.png", // Add Joseph's photo when available
-    description: "Fresh ingredients and fresh strategies make this team a contender.",
+    description: "His Masters in Teaching has not helped him explain his failiing fantasy team.",
     ownerBlurb: "Joe Ross ain't here to play nice—if you cross him, he'll swipe your girl faster than a stall door slams shut at Monon Bell. This savage relishes dropping deuces in Cole's backyard, turning them into gourmet treats for the dog Ralph. Skip buying his damage waiver, and you're dead to him—no friends, no mercy. These days, Joe's channeling that ruthless energy as a lawyer, locking up pedos left and right, proving he's the hero we didn't know we needed... or deserved.",
     draftPosition: 11
   },
@@ -116,7 +116,7 @@ export const TEAMS: Team[] = [
     owner: "Rodrigo Rabanal",
     logo: "/tbd.jpg",
     ownerPhoto: "/drigo.png", // Add Rodrigo's photo when available
-    description: "A team that knows how to move the ball and score points.",
+    description: "Enjoys full body paint at college football games.",
     ownerBlurb: "Rodrigo Rabanal, aka Drigo, hails from a lineage of Peruvian shamans famed for ayahuasca rituals that peered into the future—forecasting everything from harvests to wars and probably who’d win the llama races. Drigo, though? He'll need a massive DMT hit just to hallucinate a shot at fantasy glory, because without some serious psychedelic intervention, a first place finish seems about as likely as peace in the Middle East.",
     draftPosition: 2
   },
