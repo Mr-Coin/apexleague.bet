@@ -1,35 +1,53 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DRAFT_CONFIG } from "@/config/draft";
 
 export default function RulesSection() {
 
   return (
     <div className="space-y-6">
-      {/* Draft Day Section - Prominently Featured */}
-      <Card className="bg-gradient-to-r from-primary/20 via-primary/10 to-accent/20 border-primary/30 shadow-glow">
-        <CardHeader className="text-center pb-4">
-          <CardTitle className="text-2xl text-primary font-bold">Draft Day</CardTitle>
-          <CardDescription className="text-lg text-primary/80 font-semibold">
-            APEX Fantasy Football Draft
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="text-center space-y-4">
-          <div className="text-center">
-            <p className="text-lg text-foreground font-medium mb-3">
-              Mon, Aug 25, 2025 • 7:30–9:00pm (America/Chicago)
-            </p>
-            <Button 
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-200"
-              onClick={() => window.open('https://meet.google.com/cvq-pcru-tcu', '_blank')}
-            >
-              <ExternalLink className="w-4 h-4 mr-2" />
-              Google Meet Link
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Draft Conclusion Header - Green Styled */}
+      {DRAFT_CONFIG.showDraftConclusion && (
+        <Card className="bg-gradient-to-r from-green-500/20 via-green-400/10 to-emerald-500/20 border-green-500/30 shadow-glow">
+          <CardHeader className="text-center pb-4">
+            <CardTitle className="text-2xl text-green-600 font-bold flex items-center justify-center gap-2">
+              <CheckCircle className="w-6 h-6" />
+              {DRAFT_CONFIG.draftConclusion.title}
+            </CardTitle>
+            <CardDescription className="text-lg text-green-600/80 font-semibold">
+              {DRAFT_CONFIG.draftConclusion.message}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      )}
+
+      {/* Draft Day Section - Configurable */}
+      {DRAFT_CONFIG.showDraftNotification && (
+        <Card className="bg-gradient-to-r from-primary/20 via-primary/10 to-accent/20 border-primary/30 shadow-glow">
+          <CardHeader className="text-center pb-4">
+            <CardTitle className="text-2xl text-primary font-bold">{DRAFT_CONFIG.draftNotification.title}</CardTitle>
+            <CardDescription className="text-lg text-primary/80 font-semibold">
+              {DRAFT_CONFIG.draftNotification.subtitle}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="text-center space-y-4">
+            <div className="text-center">
+              <p className="text-lg text-foreground font-medium mb-3">
+                {DRAFT_CONFIG.draftNotification.date} • {DRAFT_CONFIG.draftNotification.time} {DRAFT_CONFIG.draftNotification.timezone}
+              </p>
+              <Button 
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-200"
+                onClick={() => window.open(DRAFT_CONFIG.draftNotification.meetLink, '_blank')}
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                {DRAFT_CONFIG.draftNotification.meetLinkText}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card className="bg-panel-gradient border-border shadow-card">
         <CardHeader>
