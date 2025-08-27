@@ -1,3 +1,5 @@
+We need to update the keepers section with this information (see table)
+
 | Owner   | 2024 Keeper      | 2024 Round | 2025 Keeper          | 2025 Round |
 |---------|------------------|------------|----------------------|------------|
 | David   |                  |            | Jayden Daniels       | 7          |

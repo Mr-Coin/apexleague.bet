@@ -17,7 +17,7 @@ export const TEAMS: Team[] = [
     logo: "/tbd.jpg", // You can add team logos here
     ownerPhoto: "/commish.png",
     description: "The commissioner's squad, always grinding and potentially cheating.",
-    ownerBlurb: "David Rasmussen, our fantasy football commish, kicked off this league two years ago dreaming of glory. That dream's a total bust so far, but he keeps grinding through the seasons. From Chicago's bullet-riddled hellhole, he dodges gang shootouts on his commute to slave away for banking tyrant Jamie Dimon—who's now yanked him back to the office five days a week, gutting his time to manage his squad, IL DUCE.",
+    ownerBlurb: "David Rasmussen, our fantasy football commish, kicked off this league two years ago dreaming of glory. That dream's a total bust so far, but he keeps grinding through the seasons. From the bullet-riddled hellhole otherwise known as Chicago, he dodges gang shootouts on his commute to slave away for banking tyrant Jamie Dimon—who's now yanked him back to the office five days a week, gutting his time to manage his squad, IL DUCE.",
     draftPosition: 10
   },
   {
