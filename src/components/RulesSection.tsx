@@ -81,6 +81,36 @@ export default function RulesSection() {
                 <li>In exercising this authority, the commissioner may consult with the Organization for the Vigilance and Repression of Anti-Competitive Activity</li>
               </ul>
             </div>
+            
+            {/* ByLaws Subsection */}
+            <div className="mt-8 pt-6 border-t border-border">
+              <h3 className="text-lg font-semibold text-foreground mb-4">ByLaws</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Access the complete league bylaws and official rules documentation.
+              </p>
+              <div className="flex gap-3">
+                <Button 
+                  onClick={() => window.open('/docs/Apex-Bylaws.pdf', '_blank')}
+                  className="bg-primary hover:bg-primary/90"
+                >
+                  View PDF
+                </Button>
+                <Button 
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = '/docs/Apex-Bylaws.pdf';
+                    link.download = 'Apex-League-Bylaws.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
+                  variant="outline"
+                  className="border-primary text-primary hover:bg-primary hover:text-white"
+                >
+                  Download PDF
+                </Button>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -96,9 +126,9 @@ export default function RulesSection() {
             <li>• 5 minutes of standup</li>
             <li>• 8-hour Greyhound somewhere then 8 hours back in a day</li>
             <li>• Wear a suit every Saturday for a specified period</li>
-            <li>• 6/12/18 challenge (ask Lohmar)</li>
+            <li>• <strong>6/12/18 Challenge:</strong> Loser must choose between hotdogs eaten, miles run, and beers consumed in a 24hr period. Loser assigns each "event" to a number (6, 12, or 18) and must complete all within 24 hours. Numbers can be assigned however the loser chooses. None need to be completed consecutively (i.e., no need to run 12 miles straight or drink 18 beers in a single sitting). Documentation of this epic feat is non-negotiable.</li>
             <li>• Chicago tri (first tri/major race or distance competition)</li>
-            <li>• 9x9 challenge</li>
+            <li>• <strong>9x9 Challenge:</strong> 9 hotdogs and 9 beers consumed over 9 innings of baseball</li>
             <li>• Tattoo of the league name or agreed-upon tattoo</li>
             <li>• Full body paint CFB game</li>
             <li>• Musical performance at a CTA stop during rush hour</li>
@@ -136,10 +166,16 @@ export default function RulesSection() {
         <CardHeader>
           <CardTitle className="text-foreground">Roster Integrity</CardTitle>
           <CardDescription className="text-muted-foreground">
-            Organization for the Vigilance and Repression of Anti-Competitive Activity
+            Organization for the Vigilance and Repression of Anti-Competitive Activity (OVRAA)
           </CardDescription>
           <p className="text-sm text-muted-foreground">
             Mission: Leaguewide roster monitoring to ensure members act in good faith and abide by league rules.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Procedure:  Any member of the league may report a suspected violation of the rules to a member of the OVRAA. The OVRAA will then investigate the report and take appropriate action. If foul play is suspected, the commissioner will be notified and swift action will be taken.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Membership:  Once a league member has notified the OVRAA of a suspected violation and the accusation is substantiated, the accuser may join the OVRAA.
           </p>
         </CardHeader>
         <CardContent>

@@ -1,6 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TEAMS, getTeamsByDraftOrder } from "@/config/teams";
+import { TeamBadge } from "@/components/ui/team-badge";
+import { getBadgesByIds } from "@/config/badges";
 
 export default function TeamsSection() {
   const teamsByDraftOrder = getTeamsByDraftOrder();
@@ -35,6 +37,36 @@ export default function TeamsSection() {
                       />
                     </div>
                     <h3 className="text-lg font-semibold text-foreground">{team.name}</h3>
+                    
+                    {/* Team Badges */}
+                    {team.badges && team.badges.length > 0 && (
+                      <div className="flex flex-wrap justify-center gap-2 mt-3">
+                        {(() => {
+                          const badgeCounts: Record<string, number> = {};
+                          team.badges.forEach(badgeId => {
+                            badgeCounts[badgeId] = (badgeCounts[badgeId] || 0) + 1;
+                          });
+                          
+                          return Object.entries(badgeCounts).map(([badgeId, count]) => {
+                            const badge = getBadgesByIds([badgeId])[0];
+                            if (!badge) return null;
+                            
+                            return (
+                              <TeamBadge
+                                key={badgeId}
+                                icon={badge.icon}
+                                name={badge.name}
+                                description={badge.description}
+                                color={badge.color}
+                                backgroundColor={badge.backgroundColor}
+                                textColor={badge.textColor}
+                                count={count}
+                              />
+                            );
+                          });
+                        })()}
+                      </div>
+                    )}
                   </div>
                 </CardHeader>
                 
