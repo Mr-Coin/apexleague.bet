@@ -90,7 +90,7 @@ export default function RulesSection() {
               </p>
               <div className="flex gap-3">
                 <Button 
-                  onClick={() => window.open('/docs/Apex-Bylaws.pdf', '_blank')}
+                  onClick={() => window.open('/Apex-Bylaws.pdf', '_blank')}
                   className="bg-primary hover:bg-primary/90"
                 >
                   View PDF
@@ -98,7 +98,7 @@ export default function RulesSection() {
                 <Button 
                   onClick={() => {
                     const link = document.createElement('a');
-                    link.href = '/docs/Apex-Bylaws.pdf';
+                    link.href = '/Apex-Bylaws.pdf';
                     link.download = 'Apex-League-Bylaws.pdf';
                     document.body.appendChild(link);
                     link.click();
