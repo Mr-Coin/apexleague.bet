@@ -54,7 +54,12 @@ export const BADGES: Record<string, Badge> = {
     id: 'doubleUp',
     name: 'Double Up',
     description: 'Won two seasons in a row',
-    icon: React.createElement(Trophy, { className: "w-4 h-4" }),
+    icon: (
+      <div className="flex items-center justify-center w-8 h-8">
+        <Trophy className="w-6 h-6" />
+        <Trophy className="w-6 h-6 ml-0" />
+      </div>
+    ),
     color: '#FFD700',
     backgroundColor: 'bg-yellow-100',
     textColor: 'text-yellow-800'
