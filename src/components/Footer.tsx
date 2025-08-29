@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Trophy, Users, Calendar, Shield, Phone } from "lucide-react";
+import { Trophy, Users, Calendar, Shield, Phone, Github } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -125,7 +125,17 @@ export default function Footer() {
               <div className="w-2 h-2 bg-primary rounded-full"></div>
               <span className="text-muted-foreground">Live</span>
             </div>
-            <span className="text-muted-foreground">Last updated: Aug 22, 2025</span>
+            <span className="text-muted-foreground">Last updated: Aug 28, 2025</span>
+            <span>•</span>
+            <a 
+              href="https://github.com/Mr-Coin/apexleague.bet" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Github className="w-4 h-4" />
+              <span>Source Code</span>
+            </a>
           </div>
         </div>
       </div>
