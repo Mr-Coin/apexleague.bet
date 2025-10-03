@@ -68,7 +68,7 @@ export default function RulesSection() {
                 <li><strong>Buy-in:</strong> $125</li>
                 <li><strong>Payouts:</strong> 1st: $1,000; 2nd: $375; 3rd: $125</li>
                 <li><strong>Keepers:</strong> Owners can keep 2 players if drafted between rounds 7–16 the following year in place of the pick for that round. No back-to-back years; player must remain on roster through season. Keepers due 48h before draft (commissioner sets exact time). <a href="#keepers" className="text-primary hover:text-primary/80 underline">View Keepers Page</a></li>
-                <li><strong>Weekly low-score:</strong> Lowest weekly score shotguns a beer before work on Tuesday (regular season & playoffs).</li>
+                <li><strong>Weekly low-score:</strong> Lowest weekly score shotguns a beer before work on Tuesday (regular season & playoffs) AND funds the league's Weekly Parley. Full Details listed in Section 7 of League Bylaws.</li>
               </ul>
             </div>
             <div className="space-y-4">
