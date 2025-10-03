@@ -125,7 +125,7 @@ export default function Footer() {
               <div className="w-2 h-2 bg-primary rounded-full"></div>
               <span className="text-muted-foreground">Live</span>
             </div>
-            <span className="text-muted-foreground">Last updated: Aug 28, 2025</span>
+            <span className="text-muted-foreground">Last updated: Oct 03, 2025</span>
             <span>•</span>
             <a 
               href="https://github.com/Mr-Coin/apexleague.bet" 
