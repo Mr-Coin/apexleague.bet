@@ -25,9 +25,10 @@ browser ──▶ Worker ──┬─▶ /api/auth/*      session cookie (worker
 |---|---|
 | Cloudflare account (Cole) | done — account id `684966fd930df89179a9e8c11975b0f4` |
 | `wrangler d1 create apex-league` | done — id in `wrangler.jsonc` |
-| Secrets (`wrangler secret put …`, see list below) | **TODO** |
-| GitHub repo secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` | **TODO** |
-| GitHub environment `production` (optional: require Cole or Stu to approve deploys) | **TODO** |
+| Secrets `LEAGUE_PASSWORD`, `COMMISSIONER_PIN`, `SESSION_SECRET` | done 2026-10-02 |
+| Secrets `ESPN_S2`, `ESPN_SWID`, `ODDS_API_KEY` | **TODO** (from Stu) |
+| GitHub repo secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` | done 2026-10-02 — pipeline verified with a manual run |
+| GitHub environment `production` (optional: add required reviewers to gate deploys) | exists; no approval rule yet |
 | Move `apexleague.bet` DNS from GoDaddy to Cloudflare, add custom domain to the Worker | **TODO** (cutover) |
 | Import Stu's D1 export | **TODO** (cutover) |
 | Disable GitHub Pages on the repo | **TODO** (after cutover) |
@@ -48,14 +49,14 @@ Set each with `npx wrangler secret put NAME` (prompts for the value; never paste
 
 Dashboard → My Profile → API Tokens → Create Token → "Edit Cloudflare Workers" template,
 scoped to this account. Add **D1:Edit** so the deploy job can run migrations. Store as the
-GitHub repository secret `CLOUDFLARE_API_TOKEN`; store the account id as `CLOUDFLARE_ACCOUNT_ID`.
+GitHub repository secret `CLOUDFLARE_API_TOKEN` **via the GitHub web UI** (`gh secret set` without a TTY silently stores an empty value); store the account id as `CLOUDFLARE_ACCOUNT_ID`.
 
 ## Everyday workflow (Cole and Stu)
 
 1. Branch from `main`, work locally with `npm run dev` (http://localhost:5173). First time: `cp .dev.vars.example .dev.vars`, then `npm run db:migrate:local`.
 2. `npm run check` before pushing (typecheck, lint, tests, build) — CI runs the same.
 3. Open a PR. CI must be green; one review from the other collaborator is the norm.
-4. Merge to `main` → GitHub Actions applies D1 migrations and deploys. Live in ~1 minute.
+4. Merge to `main` → GitHub Actions applies D1 migrations and deploys. Live in ~1 minute. Any branch can also be deployed by hand from the Actions tab ("Run workflow") — that is how staging was verified.
 
 Content edits (team blurbs, proposals, keepers) are plain TypeScript config in `src/config/` —
 see `docs/editing-*.md`. They go through the same PR → deploy path.
