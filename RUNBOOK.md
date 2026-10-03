@@ -83,7 +83,7 @@ Week 2 on the first settlement run; weeks 3+ would need manual re-entry.
 1. Secrets set, CI secrets set, a push to `main` has deployed successfully to the `*.workers.dev` URL. Test login, parlay read, pick save, commissioner PIN there.
 2. Coordinate with Stu: brief write-pause on the old Site, final export, import (above).
 3. DNS: in Cloudflare add site `apexleague.bet`, change nameservers at GoDaddy to the two Cloudflare assigns. Then Worker → Settings → Domains & Routes → add `apexleague.bet` and `www.apexleague.bet`.
-4. Confirm `https://apexleague.bet` serves the new site; GitHub Pages can be disabled in repo settings.
+4. Confirm `https://apexleague.bet` serves the new site; then disable GitHub Pages in repo settings and make the repo **private** (`gh repo edit Mr-Coin/apexleague.bet --visibility private`). Not before: Pages needs the repo public, so going private early takes the live site down.
 5. Stu retires the ChatGPT settlement trigger; the Worker cron replaces it. Keep the old Site read-only for a couple of weeks as rollback.
 
 ## Operating the parlay
