@@ -10,6 +10,7 @@ export function testEnv(db: FakeD1 = fakeD1()): AppEnv & { DB: FakeD1 } {
     DB: db,
     ASSETS: { fetch: async () => new Response("asset") } as unknown as Fetcher,
     LOGIN_LIMITER: { limit: async () => ({ success: true }) } as unknown as RateLimit,
+    PIN_LIMITER: { limit: async () => ({ success: true }) } as unknown as RateLimit,
     ESPN_LEAGUE_ID: "244513322",
     LEAGUE_PASSWORD: "pw",
     COMMISSIONER_PIN: "pin",

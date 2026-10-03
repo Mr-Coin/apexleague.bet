@@ -3,6 +3,7 @@ export interface AppEnv {
   ASSETS: Fetcher;
   DB: D1Database;
   LOGIN_LIMITER: RateLimit;
+  PIN_LIMITER: RateLimit;
 
   ESPN_LEAGUE_ID: string;
 

@@ -33,6 +33,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  // Commissioner elevation lasts 12h; re-check when the tab comes back so stale admin UI disappears.
+  useEffect(() => {
+    if (status === "loading" || status === "anonymous") return;
+    const onVisible = () => {
+      if (document.visibilityState === "visible") void refresh();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [status, refresh]);
+
   const value = useMemo<AuthValue>(
     () => ({
       status,

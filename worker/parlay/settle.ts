@@ -35,11 +35,17 @@ export async function runSettlement(env: AppEnv): Promise<SettlementOutcome> {
         status: 200,
         body: { ok: true, skipped: true, reason: "A settlement check ran recently. Retry after five minutes." },
       };
-    await backfillWeek2(db, await league(env, 2026), await games(db, 2026, 2));
+    const errors: string[] = [];
+    try {
+      await backfillWeek2(db, await league(env, 2026), await games(db, 2026, 2));
+    } catch (e) {
+      // Idempotent; retried next run. Without ESPN credentials it cannot verify owners yet.
+      console.warn("Week 2 backfill deferred:", e instanceof Error ? e.message : e);
+      errors.push("backfill:2026:2");
+    }
     const weeks = await db
       .prepare("SELECT season,week FROM picks WHERE result='pending' GROUP BY season,week ORDER BY season,week")
       .all<{ season: number; week: number }>();
-    const errors: string[] = [];
     for (const w of weeks.results) {
       try {
         await grade(db, w.season, w.week, await games(db, w.season, w.week));

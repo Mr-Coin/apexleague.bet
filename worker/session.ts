@@ -41,7 +41,10 @@ function fromBase64Url(text: string): Uint8Array | null {
 }
 
 async function hmacKey(secret: string): Promise<CryptoKey> {
-  return crypto.subtle.importKey("raw", encoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
+  return crypto.subtle.importKey("raw", encoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, [
+    "sign",
+    "verify",
+  ]);
 }
 
 export async function signSession(secret: string, session: Session): Promise<string> {
@@ -50,7 +53,11 @@ export async function signSession(secret: string, session: Session): Promise<str
   return `${payload}.${toBase64Url(new Uint8Array(sig))}`;
 }
 
-export async function verifySession(secret: string, token: string | undefined, now = Date.now()): Promise<Session | null> {
+export async function verifySession(
+  secret: string,
+  token: string | undefined,
+  now = Date.now(),
+): Promise<Session | null> {
   if (!token) return null;
   const dot = token.lastIndexOf(".");
   if (dot <= 0) return null;
@@ -74,11 +81,21 @@ export async function verifySession(secret: string, token: string | undefined, n
 function isSession(value: unknown): value is Session {
   if (typeof value !== "object" || value === null) return false;
   const s = value as Record<string, unknown>;
-  return s.v === 1 && typeof s.sid === "string" && (s.role === "member" || s.role === "commissioner") && typeof s.exp === "number";
+  return (
+    s.v === 1 &&
+    typeof s.sid === "string" &&
+    (s.role === "member" || s.role === "commissioner") &&
+    typeof s.exp === "number"
+  );
 }
 
 export function newSession(role: Role, now = Date.now()): Session {
-  return { v: 1, sid: crypto.randomUUID(), role, exp: now + (role === "commissioner" ? COMMISSIONER_TTL_MS : MEMBER_TTL_MS) };
+  return {
+    v: 1,
+    sid: crypto.randomUUID(),
+    role,
+    exp: now + (role === "commissioner" ? COMMISSIONER_TTL_MS : MEMBER_TTL_MS),
+  };
 }
 
 /** Constant-time string comparison that does not leak length via early exit. */

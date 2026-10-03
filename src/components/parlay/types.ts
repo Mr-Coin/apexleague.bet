@@ -28,7 +28,6 @@ export interface PickRow {
 
 export interface LeagueTeam {
   id: number;
-  ownerKey: string;
   personName: string | null;
   name: string;
   wins: number;

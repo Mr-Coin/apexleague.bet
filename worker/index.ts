@@ -24,7 +24,7 @@ api.onError((err, c) => {
   if (err instanceof HttpError) return c.json({ error: err.message }, err.status as 400);
   if (err instanceof ZodError) return c.json({ error: "Please check all required fields." }, 400);
   console.error(err);
-  return c.json({ error: err instanceof Error ? err.message : "Request could not be completed." }, 500);
+  return c.json({ error: "Request could not be completed." }, 500);
 });
 
 export default {

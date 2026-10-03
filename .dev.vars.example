@@ -3,8 +3,8 @@
 
 # Shared password members already use on the lock screen.
 LEAGUE_PASSWORD=change-me
-# Separate PIN that elevates a session to commissioner (grading overrides, member map).
-COMMISSIONER_PIN=0000
+# Separate PIN (6+ characters) that elevates a session to commissioner (grading overrides, member map).
+COMMISSIONER_PIN=424242
 # HMAC key for the session cookie. Generate with: openssl rand -hex 32
 SESSION_SECRET=dev-only-secret-not-for-production
 

@@ -8,6 +8,8 @@ import type { AppEnv } from "./env";
 const PUBLIC_EXACT = new Set(["/", "/index.html", "/favicon.ico", "/league-logo.jpg", "/robots.txt"]);
 
 export function isPublicAsset(pathname: string): boolean {
+  // Encoded separators or dot segments never match a real public file; refuse them outright.
+  if (/%2f|%5c|\.\.|\/\//i.test(pathname)) return false;
   return PUBLIC_EXACT.has(pathname) || pathname.startsWith("/assets/");
 }
 

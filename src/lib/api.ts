@@ -8,7 +8,10 @@ export class ApiError extends Error {
   }
 }
 
-export async function api<T>(path: string, init?: { method?: "GET" | "POST" | "DELETE"; body?: unknown; signal?: AbortSignal }): Promise<T> {
+export async function api<T>(
+  path: string,
+  init?: { method?: "GET" | "POST" | "DELETE"; body?: unknown; signal?: AbortSignal },
+): Promise<T> {
   const res = await fetch(path, {
     method: init?.method ?? (init?.body !== undefined ? "POST" : "GET"),
     headers: init?.body !== undefined ? { "Content-Type": "application/json" } : undefined,

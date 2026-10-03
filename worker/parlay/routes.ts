@@ -29,6 +29,13 @@ function clientError(e: unknown): never {
   throw new HttpError(400, e instanceof Error && e.message ? e.message : "Request could not be completed.");
 }
 
+/** ESPN owner keys are account GUIDs; expose only a stable one-way hash as the UI's row key. */
+async function withPublicKey<T extends { key: string }>(record: T): Promise<T> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(record.key));
+  const key = [...new Uint8Array(digest).slice(0, 8)].map((b) => b.toString(16).padStart(2, "0")).join("");
+  return { ...record, key };
+}
+
 const contextSchema = z.object({
   season: z.coerce.number().int().min(2018).max(2100),
   week: z.coerce.number().int().min(1).max(18),
@@ -142,12 +149,16 @@ parlayRoutes.get("/", async (c) => {
         : [null, null];
     return c.json({
       allTime: stats,
-      performance,
+      performance: performance && {
+        ...performance,
+        leaders: await Promise.all(performance.leaders.map(withPublicKey)),
+        estimatedLeaders: await Promise.all(performance.estimatedLeaders.map(withPublicKey)),
+      },
       availableSeasons: [seasonNow(), ...(currentLeague.previousSeasons || [])],
       season,
       week,
       activeWeek: activeWeek(season),
-      league: l,
+      league: { ...l, teams: l.teams.map(({ ownerKey: _ownerKey, ...t }) => t) },
       games: gs,
       scheduleError,
       ...state,

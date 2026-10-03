@@ -39,8 +39,8 @@ Set each with `npx wrangler secret put NAME` (prompts for the value; never paste
 | Name | What | Who has it |
 |---|---|---|
 | `LEAGUE_PASSWORD` | The password members already type on the lock screen | Cole |
-| `COMMISSIONER_PIN` | New. Unlocks grading overrides in the header ⚙️ menu | Cole / commissioner |
-| `SESSION_SECRET` | `openssl rand -hex 32`. Rotating it signs everyone out | generate once |
+| `COMMISSIONER_PIN` | New, 6+ characters. Unlocks grading overrides in the header ⚙️ menu (3 attempts/min/IP) | Cole / commissioner |
+| `SESSION_SECRET` | `openssl rand -hex 32`. Sessions are stateless, so rotating this is the only way to revoke them (signs everyone out) | generate once |
 | `ESPN_S2`, `ESPN_SWID` | Private ESPN fantasy cookies of a league-manager account | Stu |
 | `ODDS_API_KEY` | Optional, the-odds-api.com. Manual odds entry works without it | Stu |
 
@@ -88,7 +88,7 @@ Week 2 on the first settlement run; weeks 3+ would need manual re-entry.
 
 ## Operating the parlay
 
-- Settlement runs automatically (cron) and whenever anyone loads the parlay page. `POST /api/parlay/settle` can be called manually; it is idempotent and lease-protected (5 min).
+- Settlement runs automatically (cron) and whenever anyone loads the parlay page. `POST /api/parlay/settle` can be called manually from a signed-in session; it is idempotent and lease-protected (5 min). Until ESPN credentials are set it reports `backfill:2026:2` as deferred but still grades other weeks.
 - A leg stuck in "pending" or "review" after a game ends needs the commissioner: header ⚙️ → enter PIN → "Review result" on the leg. Give a reason; it is stored for the audit trail.
 - ESPN cookies expire (roughly yearly). Symptom: parlay page shows "Connect ESPN". Fix: Stu re-captures `espn_s2`/`SWID` from a logged-in browser, `wrangler secret put` both.
 - Odds API quota: 450 credits/month enforced in `usage`. Running out just disables the "Browse odds" tab; manual entry still works.

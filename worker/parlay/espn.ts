@@ -244,6 +244,12 @@ export async function grade(db: D1Database, season: number, week: number, gs: Ga
       await pending("Waiting for ESPN game results; will retry.");
       continue;
     }
+    // Team markets need both names to grade; an incomplete feed must stay pending rather than
+    // fall through to settle()'s "Team mismatch" review.
+    if ((p.market === "h2h" || p.market === "spreads") && (!g.home || !g.away)) {
+      await pending("Waiting for ESPN team data; will retry.");
+      continue;
+    }
     if (!g.completed) {
       await pending(p.verificationPending ? verificationPending : "Waiting for a final result · " + g.state);
       continue;
