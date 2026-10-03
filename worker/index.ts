@@ -3,6 +3,8 @@ import { ZodError } from "zod";
 import { serveAsset } from "./assets";
 import { authRoutes, HttpError, readSession, type AppContext } from "./auth";
 import type { AppEnv } from "./env";
+import { parlayRoutes } from "./parlay/routes";
+import { runSettlement } from "./parlay/settle";
 
 const api = new Hono<AppContext>().basePath("/api");
 
@@ -14,7 +16,8 @@ api.use("*", async (c, next) => {
 
 api.route("/auth", authRoutes);
 
-// Parlay routes mount here (worker/parlay/routes.ts). They require a session.
+// Weekly parlay: picks, grading, history. Every route requires a session.
+api.route("/parlay", parlayRoutes);
 
 api.notFound((c) => c.json({ error: "Not found." }, 404));
 api.onError((err, c) => {
@@ -32,7 +35,12 @@ export default {
     return serveAsset(request, env, !!session);
   },
 
-  async scheduled(_event, _env, _ctx) {
-    // Settlement cron wired in worker/parlay/settle.ts.
+  async scheduled(_event, env, ctx) {
+    // Deterministic ESPN settlement, replacing the ChatGPT-hosted trigger.
+    ctx.waitUntil(
+      runSettlement(env).then((o) => {
+        if (o.status !== 200) console.error("Settlement check reported errors", JSON.stringify(o.body));
+      }),
+    );
   },
 } satisfies ExportedHandler<AppEnv>;

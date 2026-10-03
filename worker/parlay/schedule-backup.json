@@ -1,0 +1,426 @@
+{
+  "2026:2": {
+    "events": [
+      {
+        "id": "401872947",
+        "shortName": "NYG @ LAR",
+        "date": "2026-09-22T00:15Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Los Angeles Rams" } },
+              { "homeAway": "away", "team": { "displayName": "New York Giants" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872932",
+        "shortName": "DET @ BUF",
+        "date": "2026-09-18T00:15Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Buffalo Bills" } },
+              { "homeAway": "away", "team": { "displayName": "Detroit Lions" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872933",
+        "shortName": "CAR @ ATL",
+        "date": "2026-09-20T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Atlanta Falcons" } },
+              { "homeAway": "away", "team": { "displayName": "Carolina Panthers" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872937",
+        "shortName": "MIN @ CHI",
+        "date": "2026-09-20T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Chicago Bears" } },
+              { "homeAway": "away", "team": { "displayName": "Minnesota Vikings" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872939",
+        "shortName": "PHI @ TEN",
+        "date": "2026-09-20T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Tennessee Titans" } },
+              { "homeAway": "away", "team": { "displayName": "Philadelphia Eagles" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872946",
+        "shortName": "PIT @ NE",
+        "date": "2026-09-20T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "New England Patriots" } },
+              { "homeAway": "away", "team": { "displayName": "Pittsburgh Steelers" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872936",
+        "shortName": "GB @ NYJ",
+        "date": "2026-09-20T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "New York Jets" } },
+              { "homeAway": "away", "team": { "displayName": "Green Bay Packers" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872935",
+        "shortName": "CLE @ TB",
+        "date": "2026-09-20T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Tampa Bay Buccaneers" } },
+              { "homeAway": "away", "team": { "displayName": "Cleveland Browns" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872938",
+        "shortName": "NO @ BAL",
+        "date": "2026-09-20T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Baltimore Ravens" } },
+              { "homeAway": "away", "team": { "displayName": "New Orleans Saints" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872934",
+        "shortName": "CIN @ HOU",
+        "date": "2026-09-20T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Houston Texans" } },
+              { "homeAway": "away", "team": { "displayName": "Cincinnati Bengals" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872940",
+        "shortName": "JAX @ DEN",
+        "date": "2026-09-20T20:05Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Denver Broncos" } },
+              { "homeAway": "away", "team": { "displayName": "Jacksonville Jaguars" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872941",
+        "shortName": "LV @ LAC",
+        "date": "2026-09-20T20:05Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Los Angeles Chargers" } },
+              { "homeAway": "away", "team": { "displayName": "Las Vegas Raiders" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872944",
+        "shortName": "WSH @ DAL",
+        "date": "2026-09-20T20:25Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Dallas Cowboys" } },
+              { "homeAway": "away", "team": { "displayName": "Washington Commanders" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872943",
+        "shortName": "SEA @ ARI",
+        "date": "2026-09-20T20:25Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Arizona Cardinals" } },
+              { "homeAway": "away", "team": { "displayName": "Seattle Seahawks" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872942",
+        "shortName": "MIA @ SF",
+        "date": "2026-09-20T20:25Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "San Francisco 49ers" } },
+              { "homeAway": "away", "team": { "displayName": "Miami Dolphins" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872945",
+        "shortName": "IND @ KC",
+        "date": "2026-09-21T00:20Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Kansas City Chiefs" } },
+              { "homeAway": "away", "team": { "displayName": "Indianapolis Colts" } }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "2026:3": {
+    "events": [
+      {
+        "id": "401872948",
+        "shortName": "ATL @ GB",
+        "date": "2026-09-25T00:15Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Green Bay Packers" } },
+              { "homeAway": "away", "team": { "displayName": "Atlanta Falcons" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872953",
+        "shortName": "LAC @ BUF",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Buffalo Bills" } },
+              { "homeAway": "away", "team": { "displayName": "Los Angeles Chargers" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872949",
+        "shortName": "CAR @ CLE",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Cleveland Browns" } },
+              { "homeAway": "away", "team": { "displayName": "Carolina Panthers" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872954",
+        "shortName": "NYJ @ DET",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Detroit Lions" } },
+              { "homeAway": "away", "team": { "displayName": "New York Jets" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872951",
+        "shortName": "HOU @ IND",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Indianapolis Colts" } },
+              { "homeAway": "away", "team": { "displayName": "Houston Texans" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872952",
+        "shortName": "KC @ MIA",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Miami Dolphins" } },
+              { "homeAway": "away", "team": { "displayName": "Kansas City Chiefs" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872956",
+        "shortName": "TEN @ NYG",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "New York Giants" } },
+              { "homeAway": "away", "team": { "displayName": "Tennessee Titans" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872950",
+        "shortName": "CIN @ PIT",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Pittsburgh Steelers" } },
+              { "homeAway": "away", "team": { "displayName": "Cincinnati Bengals" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872955",
+        "shortName": "SEA @ WSH",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Washington Commanders" } },
+              { "homeAway": "away", "team": { "displayName": "Seattle Seahawks" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872957",
+        "shortName": "NE @ JAX",
+        "date": "2026-09-27T17:00Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Jacksonville Jaguars" } },
+              { "homeAway": "away", "team": { "displayName": "New England Patriots" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872958",
+        "shortName": "ARI @ SF",
+        "date": "2026-09-27T20:05Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "San Francisco 49ers" } },
+              { "homeAway": "away", "team": { "displayName": "Arizona Cardinals" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872959",
+        "shortName": "MIN @ TB",
+        "date": "2026-09-27T20:05Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Tampa Bay Buccaneers" } },
+              { "homeAway": "away", "team": { "displayName": "Minnesota Vikings" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872960",
+        "shortName": "BAL VS DAL",
+        "date": "2026-09-27T20:25Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Dallas Cowboys" } },
+              { "homeAway": "away", "team": { "displayName": "Baltimore Ravens" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872961",
+        "shortName": "LV @ NO",
+        "date": "2026-09-27T20:25Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "New Orleans Saints" } },
+              { "homeAway": "away", "team": { "displayName": "Las Vegas Raiders" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872962",
+        "shortName": "LAR @ DEN",
+        "date": "2026-09-28T00:20Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Denver Broncos" } },
+              { "homeAway": "away", "team": { "displayName": "Los Angeles Rams" } }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "401872963",
+        "shortName": "PHI @ CHI",
+        "date": "2026-09-29T00:15Z",
+        "competitions": [
+          {
+            "competitors": [
+              { "homeAway": "home", "team": { "displayName": "Chicago Bears" } },
+              { "homeAway": "away", "team": { "displayName": "Philadelphia Eagles" } }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
