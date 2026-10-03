@@ -42,6 +42,13 @@ describe("auth routes", () => {
     expect(cross.headers.get("set-cookie")).toBeNull();
   });
 
+  it("reports missing configuration instead of failing opaquely", async () => {
+    const env = { ...testEnv(), SESSION_SECRET: "" };
+    const r = await post(env, "/api/auth/login", { password: "pw" });
+    expect(r.status).toBe(503);
+    expect(((await r.json()) as { error: string }).error).toMatch(/not configured/);
+  });
+
   it("returns 429 when the login limiter denies", async () => {
     const env = { ...testEnv(), LOGIN_LIMITER: denied };
     expect((await post(env, "/api/auth/login", { password: "pw" })).status).toBe(429);

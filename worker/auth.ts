@@ -72,6 +72,8 @@ export const authRoutes = new Hono<AppContext>()
   })
   .post("/login", async (c) => {
     assertSameOrigin(c.req.raw);
+    if (!c.env.SESSION_SECRET || !c.env.LEAGUE_PASSWORD)
+      throw new HttpError(503, "Sign-in is not configured yet. Set LEAGUE_PASSWORD and SESSION_SECRET.");
     await rateLimit(c, c.env.LOGIN_LIMITER);
     const { password } = passwordBody.parse(await c.req.json());
     if (!(await secretsMatch(password, c.env.LEAGUE_PASSWORD))) throw new HttpError(401, "Incorrect password.");
