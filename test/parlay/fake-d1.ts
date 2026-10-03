@@ -3,7 +3,7 @@
  * `now` replaces D1's `CAST(strftime('%s','now') AS INTEGER)*1000` so deadline
  * SQL evaluates against the test clock rather than wall time.
  */
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
@@ -19,7 +19,10 @@ export interface FakeD1 extends D1Database {
 
 export function fakeD1(now: () => number = Date.now): FakeD1 {
   const sql = new DatabaseSync(":memory:");
-  sql.exec(readFileSync(path.join(MIGRATIONS, "0001_init.sql"), "utf8"));
+  for (const file of readdirSync(MIGRATIONS)
+    .filter((f) => f.endsWith(".sql"))
+    .sort())
+    sql.exec(readFileSync(path.join(MIGRATIONS, file), "utf8"));
 
   const prepare = (query: string) => {
     let args: unknown[] = [];

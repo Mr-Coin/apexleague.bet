@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { z } from "zod";
+import { consumeAttempt } from "./throttle";
 import type { AppEnv } from "./env";
 import {
   COMMISSIONER_TTL_MS,
@@ -55,10 +56,20 @@ async function issue(
   );
 }
 
-async function rateLimit(c: { env: AppEnv; req: { header: (n: string) => string | undefined } }, limiter: RateLimit) {
-  const key = c.req.header("cf-connecting-ip") ?? "local";
-  const { success } = await limiter.limit({ key });
+const TEN_MINUTES = 10 * 60 * 1000;
+
+/** Burst filter (rate-limit binding) followed by an exact per-IP window counter in D1. */
+async function rateLimit(
+  c: { env: AppEnv; req: { header: (n: string) => string | undefined } },
+  limiter: RateLimit,
+  scope: "login" | "pin",
+  perTenMinutes: number,
+) {
+  const ip = c.req.header("cf-connecting-ip") ?? "local";
+  const { success } = await limiter.limit({ key: ip });
   if (!success) throw new HttpError(429, "Too many attempts. Try again in a minute.");
+  if (!(await consumeAttempt(c.env.DB, scope + ":" + ip, perTenMinutes, TEN_MINUTES)))
+    throw new HttpError(429, "Too many attempts. Try again in ten minutes.");
 }
 
 const passwordBody = z.object({ password: z.string().min(1).max(200) });
@@ -74,7 +85,7 @@ export const authRoutes = new Hono<AppContext>()
     assertSameOrigin(c.req.raw);
     if (!c.env.SESSION_SECRET || !c.env.LEAGUE_PASSWORD)
       throw new HttpError(503, "Sign-in is not configured yet. Set LEAGUE_PASSWORD and SESSION_SECRET.");
-    await rateLimit(c, c.env.LOGIN_LIMITER);
+    await rateLimit(c, c.env.LOGIN_LIMITER, "login", 20);
     const { password } = passwordBody.parse(await c.req.json());
     if (!(await secretsMatch(password, c.env.LEAGUE_PASSWORD))) throw new HttpError(401, "Incorrect password.");
     await issue(c, newSession("member"));
@@ -83,7 +94,7 @@ export const authRoutes = new Hono<AppContext>()
   .post("/commissioner", async (c) => {
     assertSameOrigin(c.req.raw);
     if (!c.get("session")) throw new HttpError(401, "Sign in first.");
-    await rateLimit(c, c.env.PIN_LIMITER);
+    await rateLimit(c, c.env.PIN_LIMITER, "pin", 5);
     const { pin } = pinBody.parse(await c.req.json());
     if (!(await secretsMatch(pin, c.env.COMMISSIONER_PIN))) throw new HttpError(401, "Incorrect commissioner PIN.");
     await issue(c, newSession("commissioner"));

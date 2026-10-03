@@ -49,6 +49,30 @@ describe("auth routes", () => {
     expect(((await r.json()) as { error: string }).error).toMatch(/not configured/);
   });
 
+  it("caps password attempts per IP at 20 per ten minutes even when the binding is permissive", async () => {
+    const env = testEnv();
+    const statuses: number[] = [];
+    for (let i = 0; i < 22; i++)
+      statuses.push(
+        (await post(env, "/api/auth/login", { password: "wrong" }, { "cf-connecting-ip": "203.0.113.9" })).status,
+      );
+    expect(statuses.slice(0, 20).every((s) => s === 401)).toBe(true);
+    expect(statuses.slice(20)).toEqual([429, 429]);
+    // Another address is unaffected.
+    expect(
+      (await post(env, "/api/auth/login", { password: "pw" }, { "cf-connecting-ip": "203.0.113.10" })).status,
+    ).toBe(200);
+  });
+
+  it("caps PIN attempts per IP at 5 per ten minutes", async () => {
+    const env = testEnv();
+    const cookie = "apex_session=" + (await signSession(env.SESSION_SECRET, newSession("member")));
+    const statuses: number[] = [];
+    for (let i = 0; i < 6; i++)
+      statuses.push((await post(env, "/api/auth/commissioner", { pin: "wrong1" }, { cookie })).status);
+    expect(statuses).toEqual([401, 401, 401, 401, 401, 429]);
+  });
+
   it("returns 429 when the login limiter denies", async () => {
     const env = { ...testEnv(), LOGIN_LIMITER: denied };
     expect((await post(env, "/api/auth/login", { password: "pw" })).status).toBe(429);
