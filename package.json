@@ -17,7 +17,9 @@
     "test:watch": "vitest",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
     "db:migrate:local": "wrangler d1 migrations apply apex-league --local",
-    "db:migrate:remote": "wrangler d1 migrations apply apex-league --remote"
+    "db:migrate:remote": "wrangler d1 migrations apply apex-league --remote",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.1.12",
