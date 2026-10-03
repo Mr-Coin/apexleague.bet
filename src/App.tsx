@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router";
 import Layout from "@/components/Layout";
 import LockScreen from "@/components/LockScreen";
@@ -13,8 +13,10 @@ import KeepersSection from "@/components/KeepersSection";
 import ProposalsSection from "@/components/ProposalsSection";
 import RulesSection from "@/components/RulesSection";
 import TeamsSection from "@/components/TeamsSection";
-import ParlayPage from "@/components/parlay/ParlayPage";
 import NotFound from "@/pages/NotFound";
+
+// The parlay pulls in recharts; keep it out of the main bundle.
+const ParlayPage = lazy(() => import("@/components/parlay/ParlayPage"));
 
 /** The old site used `#teams`-style hashes; keep those bookmarks working. */
 const LEGACY_HASHES = new Set(["home", "teams", "keepers", "history", "proposals", "parlay"]);
@@ -51,7 +53,14 @@ function Gate() {
           <Route path="keepers" element={<KeepersSection />} />
           <Route path="history" element={<HistorySection />} />
           <Route path="proposals" element={<ProposalsSection />} />
-          <Route path="parlay" element={<ParlayPage />} />
+          <Route
+            path="parlay"
+            element={
+              <Suspense fallback={<div className="min-h-[50vh]" aria-busy="true" />}>
+                <ParlayPage />
+              </Suspense>
+            }
+          />
           <Route path="home" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFound />} />
         </Route>
