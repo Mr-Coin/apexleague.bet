@@ -29,7 +29,7 @@ browser ──▶ Worker ──┬─▶ /api/auth/*      session cookie (worker
 | Secrets `ESPN_S2`, `ESPN_SWID`, `ODDS_API_KEY` | **TODO** (from Stu) |
 | GitHub repo secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` | done 2026-10-02 — pipeline verified with a manual run |
 | GitHub environment `production` (optional: add required reviewers to gate deploys) | exists; no approval rule yet |
-| Add `apexleague.bet` to Cloudflare and move nameservers from GoDaddy (records imported DNS-only, site keeps serving from Pages) | **TODO** now — propagation happens ahead of cutover |
+| Add `apexleague.bet` to Cloudflare and move nameservers from GoDaddy (records imported DNS-only, site keeps serving from Pages) | done 2026-10-02 — `chase.ns.cloudflare.com` / `lindsey.ns.cloudflare.com`; registry propagation pending |
 | Attach `apexleague.bet` + `www` to the Worker | **TODO** (cutover) |
 | Invite Stu to the Cloudflare account (Workers Admin) so he sets his own secrets | **TODO** (Cole) |
 | Import Stu's D1 export | **TODO** (cutover) |
@@ -102,7 +102,7 @@ Week 2 on the first settlement run; weeks 3+ would need manual re-entry.
 
 1. Secrets set, CI secrets set, a push to `main` has deployed successfully to the `*.workers.dev` URL. Test login, parlay read, pick save, commissioner PIN there.
 2. Coordinate with Stu: brief write-pause on the old Site, final export, import (above).
-3. DNS: in Cloudflare add site `apexleague.bet`, change nameservers at GoDaddy to the two Cloudflare assigns. Then Worker → Settings → Domains & Routes → add `apexleague.bet` and `www.apexleague.bet`.
+3. DNS is already on Cloudflare. Worker → Settings → Domains & Routes → add `apexleague.bet` and `www.apexleague.bet` (Cloudflare replaces the GitHub Pages records; instant, and removing the domain from the Worker restores them).
 4. Confirm `https://apexleague.bet` serves the new site; then disable GitHub Pages in repo settings and make the repo **private** (`gh repo edit Mr-Coin/apexleague.bet --visibility private`). Not before: Pages needs the repo public, so going private early takes the live site down.
 5. Stu retires the ChatGPT settlement trigger; the Worker cron replaces it. Keep the old Site read-only for a couple of weeks as rollback.
 
