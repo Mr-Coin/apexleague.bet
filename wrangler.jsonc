@@ -21,8 +21,8 @@
     {
       "binding": "DB",
       "database_name": "apex-league",
-      // Replace after `wrangler d1 create apex-league` (see RUNBOOK.md).
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      // Created 2026-10-02 in Cole's Cloudflare account (ENAM).
+      "database_id": "897d08f2-8e5b-4e79-98d7-4f9ee75713c2",
       "migrations_dir": "migrations"
     }
   ],

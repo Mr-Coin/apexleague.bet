@@ -65,7 +65,7 @@ For team logos and owner photos:
 
 After making changes:
 1. Save the `teams.ts` file
-2. Run `make start` to see your changes locally
+2. Run `npm run dev` to see your changes locally
 3. Deploy to your hosting platform
 
 ## Example Updates
@@ -118,7 +118,7 @@ public/
 
 - **Keep descriptions concise** - they appear in small cards
 - **Use high-quality images** - logos and photos should be clear
-- **Test locally first** - use `make start` to preview changes
+- **Test locally first** - use `npm run dev` to preview changes
 - **Backup your changes** - save a copy before making major updates
 
 ## Need Help?
@@ -127,6 +127,6 @@ If you run into issues:
 1. Check that all quotes and commas are correct
 2. Make sure image paths start with `/`
 3. Verify the file is saved with `.ts` extension
-4. Try running `make start` to see any error messages
+4. Try running `npm run dev` to see any error messages
 
 The website will automatically update to show your changes once the configuration file is saved and the site is refreshed!

@@ -170,7 +170,7 @@ src/config/
 - **Set realistic deadlines**: Give enough time for discussion and voting
 - **Use appropriate categories**: Helps organize and filter proposals
 - **Update status promptly**: Change from 'active' to 'passed' or 'failed' when voting ends
-- **Test locally**: Use `make start` to preview changes before deploying
+- **Test locally**: Use `npm run dev` to preview changes before deploying
 
 ## Need Help?
 
@@ -178,6 +178,6 @@ If you run into issues:
 1. Check that all quotes and commas are correct
 2. Verify date formats use `new Date('YYYY-MM-DD')`
 3. Ensure the proposal ID is unique
-4. Try running `make start` to see any error messages
+4. Try running `npm run dev` to see any error messages
 
 The proposals page will automatically update to show your changes once the configuration file is saved and the site is refreshed!
