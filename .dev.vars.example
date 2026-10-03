@@ -1,0 +1,17 @@
+# Copy to .dev.vars for local development (never committed).
+# Production values are set with `wrangler secret put <NAME>`.
+
+# Shared password members already use on the lock screen.
+LEAGUE_PASSWORD=change-me
+# Separate PIN that elevates a session to commissioner (grading overrides, member map).
+COMMISSIONER_PIN=0000
+# HMAC key for the session cookie. Generate with: openssl rand -hex 32
+SESSION_SECRET=dev-only-secret-not-for-production
+
+# Private ESPN fantasy cookies (League Manager account). Leave blank to run
+# without live scores; the parlay page shows a "connect ESPN" notice instead.
+ESPN_S2=
+ESPN_SWID=
+
+# Optional: the-odds-api.com key. Manual odds entry works without it.
+ODDS_API_KEY=

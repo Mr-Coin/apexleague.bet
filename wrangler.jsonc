@@ -1,0 +1,53 @@
+// Cloudflare Worker + static assets for apexleague.bet.
+// The React SPA is served as static assets; the Worker handles /api/* and gates
+// private assets behind the league session cookie (see worker/assets.ts).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "apexleague-bet",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  "assets": {
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    // Every request goes through the Worker so unauthenticated visitors only
+    // ever receive the shell + lock screen, never member photos or the bylaws.
+    "run_worker_first": true
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "apex-league",
+      // Replace after `wrangler d1 create apex-league` (see RUNBOOK.md).
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // Brute-force protection for the shared password / commissioner PIN.
+  "ratelimits": [
+    {
+      "name": "LOGIN_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 10, "period": 60 }
+    }
+  ],
+
+  // Deterministic parlay settlement. The Worker's `scheduled` handler runs the
+  // same grading the old ChatGPT-hosted trigger used to call.
+  "triggers": { "crons": ["*/15 * * * *"] },
+
+  "vars": {
+    "ESPN_LEAGUE_ID": "244513322"
+  }
+
+  // Secrets (set with `wrangler secret put <NAME>`, never committed):
+  //   LEAGUE_PASSWORD   shared password members already know
+  //   COMMISSIONER_PIN  elevates a session to commissioner
+  //   SESSION_SECRET    HMAC key for the session cookie (openssl rand -hex 32)
+  //   ESPN_S2, ESPN_SWID   private ESPN fantasy cookies
+  //   ODDS_API_KEY      optional, the-odds-api.com
+}
