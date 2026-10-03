@@ -29,7 +29,9 @@ browser ──▶ Worker ──┬─▶ /api/auth/*      session cookie (worker
 | Secrets `ESPN_S2`, `ESPN_SWID`, `ODDS_API_KEY` | **TODO** (from Stu) |
 | GitHub repo secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` | done 2026-10-02 — pipeline verified with a manual run |
 | GitHub environment `production` (optional: add required reviewers to gate deploys) | exists; no approval rule yet |
-| Move `apexleague.bet` DNS from GoDaddy to Cloudflare, add custom domain to the Worker | **TODO** (cutover) |
+| Add `apexleague.bet` to Cloudflare and move nameservers from GoDaddy (records imported DNS-only, site keeps serving from Pages) | **TODO** now — propagation happens ahead of cutover |
+| Attach `apexleague.bet` + `www` to the Worker | **TODO** (cutover) |
+| Invite Stu to the Cloudflare account (Workers Admin) so he sets his own secrets | **TODO** (Cole) |
 | Import Stu's D1 export | **TODO** (cutover) |
 | Disable GitHub Pages on the repo | **TODO** (after cutover) |
 
@@ -50,6 +52,23 @@ Set each with `npx wrangler secret put NAME` (prompts for the value; never paste
 Dashboard → My Profile → API Tokens → Create Token → "Edit Cloudflare Workers" template,
 scoped to this account. Add **D1:Edit** so the deploy job can run migrations. Store as the
 GitHub repository secret `CLOUDFLARE_API_TOKEN` **via the GitHub web UI** (`gh secret set` without a TTY silently stores an empty value); store the account id as `CLOUDFLARE_ACCOUNT_ID`.
+
+## Stu's checklist (parlay handover)
+
+Everything the integration needs from the original app's owner. Nothing here goes through Cole, chat, or the repo.
+
+1. **Review PR #1** — especially `worker/parlay/` (your `lib/*` ported) and `test/parlay/` (your suites). Comment on anything that drifted.
+2. **Accept the Cloudflare account invite** (Cole sends it), then on your machine: `npx wrangler login`.
+3. **Set your secrets directly** (wrangler prompts for the value; it never appears on screen or in history):
+   ```sh
+   npx wrangler secret put ESPN_S2        # espn_s2 cookie from a logged-in league-manager browser
+   npx wrangler secret put ESPN_SWID      # SWID cookie, including the braces
+   npx wrangler secret put ODDS_API_KEY   # optional; manual odds work without it
+   ```
+   Then reload the staging Parlay tab: the "ESPN connection needed" notice should disappear and the funder/standings should populate.
+4. **Export the live data** from the Sites D1: `members`, `picks`, `rounds`, `usage` (skip `cache`). Send the `.sql` file to Cole privately (not Slack/iMessage history you'd rather not keep; a shared drive link is fine). Import steps are under *Importing Stu's data*.
+5. **Confirm the owner → ESPN team map** in `members` matches 2026 (the Week 2 backfill verifies owner names against ESPN and refuses otherwise).
+6. **At cutover:** pause writes on the old Site, re-export, then retire the ChatGPT settlement trigger (the Worker cron replaces it). Keep the old Site read-only for two weeks as rollback.
 
 ## Everyday workflow (Cole and Stu)
 
