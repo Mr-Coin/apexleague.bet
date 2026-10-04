@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ExternalLink, CheckCircle } from "lucide-react";
+import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { DRAFT_CONFIG } from "@/config/draft";
 
@@ -67,7 +68,7 @@ export default function RulesSection() {
                 <li><strong>Draft:</strong> Snake • Aug 25, 2025 @ 7:30 PM CDT • 90s/pick • Order set by LM</li>
                 <li><strong>Buy-in:</strong> $125</li>
                 <li><strong>Payouts:</strong> 1st: $1,000; 2nd: $375; 3rd: $125</li>
-                <li><strong>Keepers:</strong> Owners can keep 2 players if drafted between rounds 7–16 the following year in place of the pick for that round. No back-to-back years; player must remain on roster through season. Keepers due 48h before draft (commissioner sets exact time). <a href="#keepers" className="text-primary hover:text-primary/80 underline">View Keepers Page</a></li>
+                <li><strong>Keepers:</strong> Owners can keep 2 players if drafted between rounds 7–16 the following year in place of the pick for that round. No back-to-back years; player must remain on roster through season. Keepers due 48h before draft (commissioner sets exact time). <Link to="/keepers" className="text-primary hover:text-primary/80 underline">View Keepers Page</Link></li>
                 <li><strong>Weekly low-score:</strong> Lowest weekly score shotguns a beer before work on Tuesday (regular season & playoffs) AND funds the league's Weekly Parley. Full Details listed in Section 7 of League Bylaws.</li>
               </ul>
             </div>

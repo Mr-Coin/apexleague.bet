@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TEAMS, getTeamsByDraftOrder } from "@/config/teams";
+import { getTeamsByDraftOrder } from "@/config/teams";
 import { TeamBadge } from "@/components/ui/team-badge";
 import { getBadgesByIds } from "@/config/badges";
 

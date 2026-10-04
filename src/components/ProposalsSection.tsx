@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, User, Clock } from "lucide-react";
-import { PROPOSALS, getActiveProposals } from "@/config/proposals";
+import { getActiveProposals } from "@/config/proposals";
 
 export default function ProposalsSection() {
   const activeProposals = getActiveProposals();

@@ -1,84 +1,124 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
-/* APEX Fantasy Football League - Black & Gold Design System */
+/* APEX Fantasy Football League — Black & Gold design system (Tailwind v4, CSS-first). */
 
-@layer base {
-  :root {
-    /* Core Black & Gold Color Palette */
-    --background: 0 0% 4%;      /* #0a0a0a - Deep black */
-    --foreground: 45 15% 92%;   /* #f0eed8 - Warm white */
-    
-    --card: 0 0% 8%;            /* #141414 - Rich black */
-    --card-foreground: 45 15% 92%;
-    
-    --popover: 0 0% 8%;
-    --popover-foreground: 45 15% 92%;
-    
-    --primary: 45 100% 55%;     /* #ffc700 - Pure gold */
-    --primary-foreground: 0 0% 4%;
-    
-    --secondary: 0 0% 12%;      /* #1f1f1f - Charcoal */
-    --secondary-foreground: 45 15% 92%;
-    
-    --muted: 0 0% 12%;
-    --muted-foreground: 45 8% 70%;  /* #b8b59f - Muted gold */
-    
-    --accent: 38 90% 65%;       /* #f4c430 - Bright amber */
-    --accent-foreground: 0 0% 4%;
-    
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 45 15% 92%;
-    
-    --border: 45 20% 18%;       /* #322e1a - Dark gold border */
-    --input: 45 20% 18%;
-    --ring: 45 100% 55%;
-    
-    /* Black & Gold Brand Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-    --gradient-bg: radial-gradient(1200px 600px at 70% -10%, hsl(0 0% 8%) 0%, hsl(var(--background)) 60%);
-    --gradient-panel: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(0 0% 6%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(45 100% 55%) 0%, hsl(38 90% 65%) 50%, hsl(42 85% 48%) 100%);
-    --gradient-black: linear-gradient(135deg, hsl(0 0% 12%) 0%, hsl(0 0% 8%) 50%, hsl(0 0% 4%) 100%);
-    
-    /* Luxury Shadows & Effects */
-    --shadow-card: 0 20px 50px hsl(0 0% 0% / 0.4);
-    --shadow-glow: 0 0 60px hsl(var(--primary) / 0.25);
-    --shadow-accent: 0 8px 32px hsl(var(--accent) / 0.3);
-    --shadow-gold-inset: inset 0 2px 4px hsl(45 100% 80% / 0.1);
-    
-    --radius: 0.875rem;
+:root {
+  --background: hsl(0 0% 4%);          /* #0a0a0a deep black */
+  --foreground: hsl(45 15% 92%);       /* #f0eed8 warm white */
+
+  --card: hsl(0 0% 8%);                /* #141414 rich black */
+  --card-foreground: hsl(45 15% 92%);
+
+  --popover: hsl(0 0% 8%);
+  --popover-foreground: hsl(45 15% 92%);
+
+  --primary: hsl(45 100% 55%);         /* #ffc700 pure gold */
+  --primary-foreground: hsl(0 0% 4%);
+
+  --secondary: hsl(0 0% 12%);          /* #1f1f1f charcoal */
+  --secondary-foreground: hsl(45 15% 92%);
+
+  --muted: hsl(0 0% 12%);
+  --muted-foreground: hsl(45 8% 70%);  /* #b8b59f muted gold */
+
+  --accent: hsl(38 90% 65%);           /* #f4c430 bright amber */
+  --accent-foreground: hsl(0 0% 4%);
+
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(45 15% 92%);
+
+  --success: hsl(142 60% 45%);
+  --success-foreground: hsl(0 0% 4%);
+
+  --border: hsl(45 20% 18%);           /* #322e1a dark gold border */
+  --input: hsl(45 20% 18%);
+  --ring: hsl(45 100% 55%);
+
+  --radius: 0.875rem;
+
+  /* Brand gradients */
+  --gradient-hero: linear-gradient(135deg, var(--primary), var(--accent));
+  --gradient-bg: radial-gradient(1200px 600px at 70% -10%, hsl(0 0% 8%) 0%, var(--background) 60%);
+  --gradient-panel: linear-gradient(135deg, var(--card) 0%, hsl(0 0% 6%) 100%);
+  --gradient-gold: linear-gradient(135deg, hsl(45 100% 55%) 0%, hsl(38 90% 65%) 50%, hsl(42 85% 48%) 100%);
+  --gradient-black: linear-gradient(135deg, hsl(0 0% 12%) 0%, hsl(0 0% 8%) 50%, hsl(0 0% 4%) 100%);
+
+  /* Luxury shadows */
+  --shadow-card: 0 20px 50px hsl(0 0% 0% / 0.4);
+  --shadow-glow: 0 0 60px hsl(45 100% 55% / 0.25);
+  --shadow-accent: 0 8px 32px hsl(38 90% 65% / 0.3);
+  --shadow-gold-inset: inset 0 2px 4px hsl(45 100% 80% / 0.1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --background-image-hero-gradient: var(--gradient-hero);
+  --background-image-panel-gradient: var(--gradient-panel);
+  --background-image-gold-gradient: var(--gradient-gold);
+  --background-image-black-gradient: var(--gradient-black);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-glow: var(--shadow-glow);
+  --shadow-accent: var(--shadow-accent);
+  --shadow-gold-inset: var(--shadow-gold-inset);
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
 
   body {
-    @apply text-foreground;
+    @apply text-foreground font-sans;
     background: var(--gradient-bg);
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Inter, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--background);
     line-height: 1.6;
+    min-height: 100dvh;
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-    border-radius: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary));
-  }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--muted); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 }

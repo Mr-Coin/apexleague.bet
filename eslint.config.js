@@ -1,29 +1,44 @@
 import js from "@eslint/js";
-import globals from "globals";
+import { defineConfig, globalIgnores } from "eslint/config";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
-  { ignores: ["dist"] },
+export default defineConfig(
+  globalIgnores(["dist", ".wrangler", "coverage", "worker-configuration.d.ts"]),
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
-    plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
-    },
+    extends: [js.configs.recommended, tseslint.configs.recommended],
+    languageOptions: { ecmaVersion: 2022 },
     rules: {
-      ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
-      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+      "@typescript-eslint/consistent-type-imports": "error",
     },
-  }
+  },
+  {
+    files: ["src/**/*.{ts,tsx}", "shared/**/*.ts"],
+    extends: [reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
+    languageOptions: { globals: globals.browser },
+    rules: {
+      "react-refresh/only-export-components": [
+        "error",
+        { allowConstantExport: true, allowExportNames: ["badgeVariants", "buttonVariants"] },
+      ],
+    },
+  },
+  {
+    files: ["worker/**/*.ts", "shared/**/*.ts", "test/**/*.ts"],
+    ignores: ["test/ui/**"],
+    languageOptions: { globals: { ...globals.serviceworker, ...globals.es2022 } },
+  },
+  {
+    files: ["test/ui/**/*.{ts,tsx}"],
+    extends: [reactHooks.configs.flat.recommended],
+    languageOptions: { globals: { ...globals.browser, ...globals.es2022 } },
+  },
+  {
+    files: ["*.config.{js,ts}"],
+    languageOptions: { globals: globals.node },
+  },
 );

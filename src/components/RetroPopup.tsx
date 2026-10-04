@@ -1,164 +1,49 @@
-import { useEffect, useState } from 'react';
-import { POPUP_CONFIG } from '../config/popup';
+import { useEffect, useState } from "react";
+import { POPUP_CONFIG } from "@/config/popup";
+import { usePopupEnabled } from "@/lib/popup-store";
 
-const RetroPopup = () => {
+/** Windows-95 styled interstitial. Appears once per page load after POPUP_CONFIG.delayMs. */
+export default function RetroPopup() {
+  const enabled = usePopupEnabled();
   const [isVisible, setIsVisible] = useState(false);
 
-  // Check localStorage for saved preference on mount
   useEffect(() => {
-    const saved = localStorage.getItem('popupEnabled');
-    if (saved !== null) {
-      POPUP_CONFIG.enabled = saved === 'true';
-    }
-  }, []);
-
-  // Don't render anything if popup is disabled
-  if (!POPUP_CONFIG.enabled) return null;
-
-  useEffect(() => {
-    // HERE - pop up config
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, POPUP_CONFIG.delayMs);
-
+    if (!enabled) return;
+    const timer = setTimeout(() => setIsVisible(true), POPUP_CONFIG.delayMs);
     return () => clearTimeout(timer);
-  }, []);
+  }, [enabled]);
 
-  const handleAgree = () => {
-    setIsVisible(false);
-  };
-
-  const handleDisagree = () => {
-    // Open the link in a new tab
-    window.open(POPUP_CONFIG.disagreeLink, '_blank');
-  };
-
-  // Prevent keyboard events when popup is visible
+  // Swallow keyboard input while the popup is up, matching the original behavior.
   useEffect(() => {
-    if (isVisible) {
-      const handleKeyDown = (e: KeyboardEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-      };
-
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
-    }
+    if (!isVisible) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isVisible]);
 
-  if (!isVisible) return null;
+  if (!enabled || !isVisible) return null;
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        zIndex: 9999,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontFamily: 'monospace',
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: '#ffffff',
-          border: '3px solid #808080',
-          padding: '30px',
-          textAlign: 'center',
-          maxWidth: '700px',
-          width: '90%',
-          boxShadow: 'none',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginBottom: '30px' }}>
-          <img 
-            src="/towers.jpg" 
-            alt="Towers" 
-            style={{
-              width: '80px',
-              height: '80px',
-              border: '2px solid #000000',
-              objectFit: 'cover'
-            }}
-          />
-          
-          <div
-            style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: '#000000',
-              lineHeight: '1.2',
-              flex: '1',
-              textAlign: 'center'
-            }}
-          >
-            {POPUP_CONFIG.message}
-          </div>
-          
-          <img 
-            src="/bush.jpg" 
-            alt="Bush" 
-            style={{
-              width: '80px',
-              height: '80px',
-              border: '2px solid #000000',
-              objectFit: 'cover'
-            }}
-          />
+    <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black/80 font-mono" role="dialog" aria-modal="true">
+      <div className="w-[90%] max-w-[700px] bg-white border-[3px] border-[#808080] p-[30px] text-center">
+        <div className="flex items-center justify-center gap-5 mb-[30px]">
+          <img src="/towers.jpg" alt="Towers" className="w-20 h-20 border-2 border-black object-cover" />
+          <div className="flex-1 text-2xl font-bold text-black leading-tight text-center">{POPUP_CONFIG.message}</div>
+          <img src="/bush.jpg" alt="Bush" className="w-20 h-20 border-2 border-black object-cover" />
         </div>
-        
-        <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+        <div className="flex gap-5 justify-center">
           <button
-            onClick={handleAgree}
-            style={{
-              backgroundColor: '#00ff00',
-              color: '#ffffff',
-              border: '2px solid #000000',
-              padding: '15px 30px',
-              fontSize: '18px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontFamily: 'monospace',
-            }}
-            onMouseDown={(e) => {
-              e.currentTarget.style.backgroundColor = '#00cc00';
-            }}
-            onMouseUp={(e) => {
-              e.currentTarget.style.backgroundColor = '#00ff00';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#00ff00';
-            }}
+            onClick={() => setIsVisible(false)}
+            className="bg-[#00ff00] active:bg-[#00cc00] text-white border-2 border-black px-[30px] py-[15px] text-lg font-bold cursor-pointer font-mono"
           >
             {POPUP_CONFIG.agreeButtonText}
           </button>
-          
           <button
-            onClick={handleDisagree}
-            style={{
-              backgroundColor: '#ff0000',
-              color: '#ffffff',
-              border: '2px solid #000000',
-              padding: '15px 30px',
-              fontSize: '18px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontFamily: 'monospace',
-            }}
-            onMouseDown={(e) => {
-              e.currentTarget.style.backgroundColor = '#cc0000';
-            }}
-            onMouseUp={(e) => {
-              e.currentTarget.style.backgroundColor = '#ff0000';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#ff0000';
-            }}
+            onClick={() => window.open(POPUP_CONFIG.disagreeLink, "_blank", "noopener")}
+            className="bg-[#ff0000] active:bg-[#cc0000] text-white border-2 border-black px-[30px] py-[15px] text-lg font-bold cursor-pointer font-mono"
           >
             {POPUP_CONFIG.disagreeButtonText}
           </button>
@@ -166,6 +51,4 @@ const RetroPopup = () => {
       </div>
     </div>
   );
-};
-
-export default RetroPopup;
+}

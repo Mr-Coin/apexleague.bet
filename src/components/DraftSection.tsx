@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactElement } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -53,7 +53,7 @@ export default function DraftSection() {
       teamGroups[pick.Team].push(pick);
     });
 
-    const rows: JSX.Element[] = [];
+    const rows: ReactElement[] = [];
     Object.keys(teamGroups).sort().forEach(team => {
       teamGroups[team].forEach(pick => {
         rows.push(

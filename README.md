@@ -1,298 +1,73 @@
-# APEX Fantasy Football League - League Hub
+# APEX Fantasy Football League — League Hub
 
-Welcome to the official website for the APEX Fantasy Football League! This is a comprehensive league management platform built for our 12-team fantasy football league.
+The private website for the APEX league: rules, teams, keepers, history, proposals, and the
+Weekly Loser's Parlay. Lives at https://apexleague.bet.
 
-## 🏈 League Overview
+## Stack
 
-- **Teams**: 12 elite fantasy football managers
-- **Scoring**: 0.5 PPR (Point Per Reception)
-- **Platform**: ESPN Fantasy Football
-- **Buy-in**: $125 per team
-- **Season**: 2025 Fantasy Football Season
+- **Frontend:** React 19, react-router 8, Tailwind CSS 4, shadcn/ui primitives, Vite 8 — `src/`
+- **Backend:** Cloudflare Worker (Hono) with D1/SQLite — `worker/`
+- **Shared:** pure parlay model and week math used by both — `shared/`
+- **Hosting/deploy:** one Worker serving the SPA as static assets; GitHub Actions deploys `main`
 
-## 🚀 Getting Started
+See [RUNBOOK.md](RUNBOOK.md) for hosting, secrets, deploys, data import and recovery.
 
-### Prerequisites
-- Node.js (version 18 or higher)
-- npm or yarn package manager
+## Develop
 
-### Local Development Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd apexleague.bet
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-### Alternative: Use the Makefile Commands
-
-We've provided convenient Makefile commands for easy development:
-
-- **`make install`** - Install all project dependencies
-- **`make start`** - Start fresh development server with updated dependencies
-- **`make stop`** - Stop the development server
-- **`make build`** - Build the project for deployment
-
-## 🌐 Deployment
-
-### Quick Deployment
-
-Use the automated deployment script:
-
-```bash
-./deploy.sh
+```sh
+npm install
+cp .dev.vars.example .dev.vars   # local secrets; edit the password/PIN if you like
+npm run db:migrate:local         # creates the local D1 schema
+npm run dev                      # http://localhost:5173
 ```
 
-This script will:
-1. Install dependencies
-2. Build the project
-3. Commit and push the built files
-4. Guide you through GitHub Pages setup
+`npm run check` runs everything CI runs: typecheck, lint, tests, build. Formatting is Prettier
+(`npm run format`).
 
-### Manual Deployment
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Vite dev server with the Worker running locally (Miniflare) |
+| `npm test` / `npm run test:watch` | Vitest |
+| `npm run typecheck` | `tsc -b` across app, worker and config projects |
+| `npm run lint` | ESLint (flat config) |
+| `npm run build` | Production build to `dist/` (client + worker) |
+| `npm run db:migrate:local` | Apply `migrations/` to the local D1 |
 
-1. **Build the project**
-   ```bash
-   npm run build
-   ```
+Node 22 LTS (`.node-version`). Secrets never go in the repo — only `.dev.vars.example`.
 
-2. **Configure GitHub Pages**
-   - Go to your repository Settings > Pages
-   - Select "Deploy from a branch"
-   - Choose "main" branch and "/docs" folder
-   - Click Save
-
-3. **Deploy updates**
-   ```bash
-   npm run build
-   git add docs/
-   git commit -m "Update website"
-   git push origin main
-   ```
-
-For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md).
-
-## 📝 Updating Team Information
-
-### How to Update Team Details
-
-The team information is stored in a configuration file that's easy to edit without coding knowledge.
-
-#### 1. Locate the Teams Configuration File
-
-Open: `src/config/teams.ts`
-
-#### 2. Find the Team You Want to Update
-
-Each team is defined in a section that looks like this:
-
-```typescript
-{
-  id: "il-duce",
-  name: "IL DUCE",
-  owner: "David Rasmussen",
-  logo: "/tbd.jpg",
-  ownerPhoto: "/commish.png",
-  description: "The commissioner's squad, always grinding through the seasons.",
-  ownerBlurb: "David Rasmussen, our fantasy football commish...",
-  draftPosition: 10
-}
-```
-
-#### 3. Update Team Information
-
-Simply change the text between the quotes (`"..."`) for any field:
-
-- **`name`**: Change the team name
-- **`owner`**: Change the owner's name
-- **`description`**: Update the team description (keep it concise)
-- **`ownerBlurb`**: Update the owner's story (can be longer)
-- **`draftPosition`**: Change the draft position number
-
-#### 4. Update Team Photos and Logos
-
-**For Team Logos:**
-1. Add your logo image to the `public/` folder
-2. Update the `logo` field in the configuration:
-   ```typescript
-   logo: "/your-team-logo.png"
-   ```
-
-**For Owner Photos:**
-1. Add the photo to the `public/` folder
-2. Update the `ownerPhoto` field:
-   ```typescript
-   ownerPhoto: "/owner-name-photo.jpg"
-   ```
-
-**Current Photo Examples:**
-- David (Commissioner): `/commish.png`
-- Brennan (Roster Integrity Chair): `/brennan.png`
-- Cole (Roster Integrity Analyst): `/cole.png`
-- Other owners: Currently use `/placeholder.svg`
-
-#### 5. Save and Test
-
-1. Save the `teams.ts` file
-2. Run `make start` to see your changes locally
-3. The website will automatically update to show your changes
-
-### Example Updates
-
-#### Changing a Team Name
-```typescript
-// Before
-name: "Old Team Name",
-
-// After
-name: "New Team Name",
-```
-
-#### Adding a New Owner Photo
-```typescript
-// Before
-ownerPhoto: "/placeholder.svg",
-
-// After
-ownerPhoto: "/kevin-photo.jpg",
-```
-
-#### Updating Team Description
-```typescript
-// Before
-description: "A powerhouse team with strategic depth.",
-
-// After
-description: "A powerhouse team that dominates with explosive plays and strategic depth.",
-```
-
-## 🖼️ Image Guidelines
-
-### Team Logos
-- **Format**: PNG, JPG, or SVG
-- **Size**: Recommended 200x200 pixels or larger
-- **Style**: Square or circular logos work best
-- **Placement**: Save in `public/` folder
-
-### Owner Photos
-- **Format**: JPG or PNG
-- **Size**: Recommended 400x400 pixels or larger
-- **Style**: Square photos work best (will be displayed as circles)
-- **Placement**: Save in `public/` folder
-
-## 📁 File Structure
+## Project layout
 
 ```
-public/
-├── commish.png          # David's photo
-├── brennan.png          # Brennan's photo
-├── cole.png             # Cole's photo
-├── tbd.jpg              # Placeholder for team logos
-├── team-logos/          # Add team logos here
-│   ├── il-duce.png
-│   ├── big-mike.png
-│   └── ...
-└── owner-photos/        # Add more owner photos here
-    ├── kevin-photo.jpg
-    ├── henry-photo.jpg
-    └── ...
+src/
+  App.tsx                 routes + auth gate
+  components/             page sections (RulesSection, TeamsSection, …) and parlay/
+  components/ui/          shadcn primitives actually in use
+  config/                 editable league content (teams, proposals, draft, popup)
+  lib/                    api client, auth context, popup store
+shared/parlay/            markets, grading math, week boundaries (client + worker)
+worker/
+  index.ts                fetch/scheduled entry; mounts /api
+  auth.ts, session.ts     password login, commissioner PIN, signed cookie
+  assets.ts               gates private static files behind the session
+  parlay/                 ESPN/odds providers, settlement, history, routes
+migrations/               D1 schema (applied by CI)
+test/                     Vitest suites
+docs/                     content-editing guides for non-developers
 ```
 
-## 🎯 Key Features
+## Editing league content
 
-### Home Page
-- **Draft Day Information**: Prominently displayed with Google Meet link
-- **League Rules**: Complete rule set and regulations
-- **Commissioner Section**: Meet David Rasmussen
-- **Roster Integrity**: Brennan and Cole's oversight team
+Team blurbs, photos, proposals and draft notices are TypeScript config in `src/config/`.
+Non-developers: start with [docs/editing-teams.md](docs/editing-teams.md),
+[docs/editing-proposals.md](docs/editing-proposals.md), [docs/editing-draft.md](docs/editing-draft.md).
+Images go in `public/`. Open a PR; merging deploys.
 
-### Teams Page
-- **Team Profiles**: Individual cards for each team
-- **Owner Information**: Photos and personal stories
-- **Draft Positions**: Current draft order
-- **Team Descriptions**: Custom team narratives
+## Contributing
 
-### Keepers Page
-- **Keeper Selections**: View and export keeper data
-- **Year Toggle**: Switch between 2024 and 2025
-- **CSV Export**: Download keeper data for analysis
+Branch → PR → green CI → review by the other maintainer → merge to `main` (auto-deploys).
+Keep behaviour changes and content changes in separate PRs when you can.
 
-### History Page
-- **Championship History**: Past winners and records
-- **Season Standings**: Final standings for each year
-- **Collapsible Sections**: Easy navigation through years
+## Credits
 
-## 🔧 Technical Details
-
-### Built With
-- **Frontend**: React 18 with TypeScript
-- **Styling**: Tailwind CSS with custom design system
-- **UI Components**: shadcn/ui component library
-- **Build Tool**: Vite for fast development
-- **Icons**: Lucide React icon library
-
-### Design System
-- **Colors**: Black and gold theme (APEX branding)
-- **Typography**: Clean, readable fonts
-- **Layout**: Responsive design for all devices
-- **Components**: Consistent styling across all pages
-
-## 🚨 Troubleshooting
-
-### Common Issues
-
-**Images not showing:**
-- Check that image paths start with `/`
-- Verify images are in the `public/` folder
-- Ensure file extensions match exactly
-
-**Changes not appearing:**
-- Save the `teams.ts` file
-- Refresh your browser
-- Check the browser console for errors
-
-**Build errors:**
-- Run `make install` to ensure dependencies are up to date
-- Check that all quotes and commas are correct in the config file
-- Verify TypeScript syntax is valid
-
-### Getting Help
-
-If you need assistance:
-1. Check this README for common solutions
-2. Review the `TEAMS_CONFIG_README.md` for detailed team configuration help
-3. Contact the league commissioner or technical team
-
-## 📅 Maintenance
-
-### Regular Updates
-- **Team Information**: Update as needed throughout the season
-- **Draft Positions**: Update after draft order changes
-- **Photos**: Add new owner photos as they become available
-- **Content**: Keep team descriptions and blurbs current
-
-### Before Each Season
-- Update draft positions
-- Review and update team descriptions
-- Add new owner photos
-- Update any rule changes
-- Refresh keeper information
-
----
-
-**APEX Fantasy Football League** - Where strategy meets competition! 🏆
-
-*Last updated: August 2025*
+Site by Cole Thomas. Weekly Loser's Parlay by Stuart Alvey (originally hosted standalone;
+integrated here in October 2026).
