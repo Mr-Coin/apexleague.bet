@@ -274,7 +274,18 @@ describe("games", () => {
           },
         ],
       },
-      { id: "402", date: "2026-09-27T20:00Z" },
+      {
+        id: "402",
+        date: "2026-09-27T20:00Z",
+        competitions: [
+          {
+            competitors: [
+              { homeAway: "home", score: "0" },
+              { homeAway: "away", score: "0" },
+            ],
+          },
+        ],
+      },
     ],
   };
 
