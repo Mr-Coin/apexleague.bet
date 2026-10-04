@@ -153,7 +153,8 @@ describe("ParlayPage", () => {
 
     mockFetch({ "/api/parlay": () => ok({ deadline: NOW + 60_000 }) });
     renderApp(<ParlayPage />);
-    expect(await screen.findByRole("button", { name: /Make my pick/ })).toBeEnabled();
+    await screen.findByRole("heading", { name: "Week 3" });
+    expect(screen.getByRole("button", { name: /Make my pick/ })).toBeEnabled();
     await act(() => vi.advanceTimersByTimeAsync(60_000));
     expect(screen.getByRole("button", { name: "Picks locked" })).toBeDisabled();
   });
@@ -161,7 +162,8 @@ describe("ParlayPage", () => {
   it("disables new picks when no games remain and explains why", async () => {
     mockFetch({ "/api/parlay": () => ok({ games: [], scheduleError: "NFL schedule is unavailable." }) });
     const { unmount } = renderApp(<ParlayPage />);
-    expect(await screen.findByRole("button", { name: /Make my pick/ })).toBeDisabled();
+    await screen.findByRole("heading", { name: "Week 3" });
+    expect(screen.getByRole("button", { name: /Make my pick/ })).toBeDisabled();
     expect(screen.getByText("The schedule could not load. Tap refresh to retry.")).toBeInTheDocument();
     unmount();
     mockFetch({
