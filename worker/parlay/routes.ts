@@ -206,7 +206,7 @@ parlayRoutes.post("/", async (c) => {
         throw new Error("This pick has started and cannot be changed or deleted.");
       if (b.action === "deletePick") {
         const deleted = await env.DB.prepare(
-          "DELETE FROM picks WHERE season=? AND week=? AND team_id=? AND result='pending' AND ? > CAST(strftime('%s','now') AS INTEGER)*1000",
+          "DELETE FROM picks WHERE season=? AND week=? AND team_id=? AND result='pending' AND ? > CAST(strftime('%s','now') AS INTEGER)*1000 AND CAST(strftime('%s',json_extract(picks.data,'$.kickoff')) AS INTEGER)*1000 > CAST(strftime('%s','now') AS INTEGER)*1000",
         )
           .bind(ctx.season, ctx.week, teamId, pickDeadline(ctx.season, ctx.week))
           .run();
@@ -242,7 +242,7 @@ parlayRoutes.post("/", async (c) => {
       if (duplicate) throw new Error("That exact leg has already been selected.");
       const full = await bindPickForSave(env, { ...p, game: g.name, kickoff: g.date }, ctx.season);
       const saved = await env.DB.prepare(
-        "INSERT INTO picks(id,season,week,team_id,user_id,data,updated) SELECT ?,?,?,?,?,?,? WHERE ? > CAST(strftime('%s','now') AS INTEGER)*1000 ON CONFLICT(season,week,team_id) DO UPDATE SET data=excluded.data,updated=excluded.updated,actual=NULL WHERE picks.result='pending'",
+        "INSERT INTO picks(id,season,week,team_id,user_id,data,updated) SELECT ?,?,?,?,?,?,? WHERE ? > CAST(strftime('%s','now') AS INTEGER)*1000 AND ? > CAST(strftime('%s','now') AS INTEGER)*1000 ON CONFLICT(season,week,team_id) DO UPDATE SET data=excluded.data,updated=excluded.updated,actual=NULL WHERE picks.result='pending' AND CAST(strftime('%s',json_extract(picks.data,'$.kickoff')) AS INTEGER)*1000 > CAST(strftime('%s','now') AS INTEGER)*1000",
       )
         .bind(
           crypto.randomUUID(),
@@ -253,9 +253,10 @@ parlayRoutes.post("/", async (c) => {
           JSON.stringify(full),
           Date.now(),
           pickDeadline(ctx.season, ctx.week),
+          Date.parse(full.kickoff),
         )
         .run();
-      if (!saved.meta.changes) throw new Error("The Sunday deadline has passed. Your pick was not changed.");
+      if (!saved.meta.changes) throw new Error("This pick is locked. Your pick was not changed.");
       return c.json({ ok: true, verificationPending: !!full.verificationPending });
     }
     if (b.action === "grade") {
