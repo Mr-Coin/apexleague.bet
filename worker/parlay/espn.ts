@@ -132,22 +132,35 @@ export async function league(env: AppEnv, season: number): Promise<LeagueState> 
   }
 }
 
+function validScore(value: unknown): value is number {
+  return typeof value === "number" && Number.isSafeInteger(value) && value >= 0;
+}
+
+function parseScore(value: unknown): number | undefined {
+  if (typeof value !== "number" && (typeof value !== "string" || !value.trim())) return undefined;
+  const score = Number(value);
+  return validScore(score) ? score : undefined;
+}
+
 function normalizeGames(d: EspnScoreboard, scheduleOnly = false): Game[] {
   return (d.events || []).map((e) => {
     const c = e.competitions?.[0],
       h = c?.competitors?.find((x) => x.homeAway === "home"),
-      a = c?.competitors?.find((x) => x.homeAway === "away");
+      a = c?.competitors?.find((x) => x.homeAway === "away"),
+      homeScore = parseScore(h?.score),
+      awayScore = parseScore(a?.score),
+      scoresUnavailable = scheduleOnly || homeScore === undefined || awayScore === undefined;
     return {
       id: e.id,
       name: e.shortName ?? "",
       home: h?.team?.displayName ?? "",
       away: a?.team?.displayName ?? "",
       date: e.date,
-      completed: !scheduleOnly && e.status?.type?.completed === true,
-      state: scheduleOnly ? "Schedule only · scores unavailable" : e.status?.type?.shortDetail || "Scheduled",
-      homeScore: scheduleOnly ? 0 : Number(h?.score || 0),
-      awayScore: scheduleOnly ? 0 : Number(a?.score || 0),
-      scheduleOnly,
+      completed: !scoresUnavailable && e.status?.type?.completed === true,
+      state: scoresUnavailable ? "Schedule only · scores unavailable" : e.status?.type?.shortDetail || "Scheduled",
+      homeScore: homeScore ?? 0,
+      awayScore: awayScore ?? 0,
+      scheduleOnly: scoresUnavailable,
     };
   });
 }
@@ -248,6 +261,11 @@ export async function grade(db: D1Database, season: number, week: number, gs: Ga
     // fall through to settle()'s "Team mismatch" review.
     if ((p.market === "h2h" || p.market === "spreads") && (!g.home || !g.away)) {
       await pending("Waiting for ESPN team data; will retry.");
+      continue;
+    }
+    // Cached/provider data must also be valid before score-based settlement.
+    if (["h2h", "spreads", "totals"].includes(p.market) && (!validScore(g.homeScore) || !validScore(g.awayScore))) {
+      await pending("Waiting for valid ESPN scores; will retry.");
       continue;
     }
     if (!g.completed) {

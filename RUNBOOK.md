@@ -68,7 +68,7 @@ Everything the integration needs from the original app's owner. Nothing here goe
    Then reload the staging Parlay tab: the "ESPN connection needed" notice should disappear and the funder/standings should populate.
 4. **Export the live data** from the Sites D1: `members`, `picks`, `rounds`, `usage` (skip `cache`). Send the `.sql` file to Cole privately (not Slack/iMessage history you'd rather not keep; a shared drive link is fine). Import steps are under *Importing Stu's data*.
 5. **Confirm the owner → ESPN team map** in `members` matches 2026 (the Week 2 backfill verifies owner names against ESPN and refuses otherwise).
-6. **At cutover:** pause writes on the old Site, re-export, then retire the ChatGPT settlement trigger (the Worker cron replaces it). Keep the old Site read-only for two weeks as rollback.
+6. **At cutover:** pause writes and settlement on both sites, re-export, then retire the ChatGPT settlement trigger (the Worker cron replaces it). Keep the old Site read-only for two weeks as rollback.
 
 ## Everyday workflow (Cole and Stu)
 
@@ -89,19 +89,21 @@ see `docs/editing-*.md`. They go through the same PR → deploy path.
 
 ### Importing Stu's data (cutover)
 
-1. Stu exports from the old Site: a SQL dump of `members`, `picks`, `rounds`, `usage` (the `cache` table is disposable — do **not** import it; it holds a stale settlement lease and ESPN snapshots that will rebuild).
-2. Review the dump: no `cache` rows, no credentials, member emails are present in `members` only (that table is fine in D1 — it never enters the repo).
-3. Dry-run locally: `npx wrangler d1 execute apex-league --local --file path/to/dump.sql`, then `npm run dev` and compare week history against the live Site.
-4. Production: `npx wrangler d1 execute apex-league --remote --file path/to/dump.sql`.
-5. Verify counts: `SELECT season, week, COUNT(*) FROM picks GROUP BY 1,2` matches the old app.
+1. Preserve private, full backups of both source and destination databases before import. Keep exports out of git, chat, issues and build artifacts: they contain member identities. Record the source snapshot time and retain the untouched exports for rollback.
+2. Prepare a **data-only** import with explicit column lists for `members`, `picks`, `rounds` and `usage`. Do not execute a raw full SQL dump against the migrated destination. Exclude schema/DDL, migration bookkeeping and `cache` (including settlement leases and provider snapshots). Preserve saved pick JSON, identity mappings, odds provenance, grades, actual stats and pending reasons exactly.
+3. Inventory destination rows and unique-key conflicts first. The Week 2 backfill may already have populated the destination. Resolve each conflict with an explicit, reviewed reconciliation plan; do not silently discard or overwrite records with `INSERT OR IGNORE` or `INSERT OR REPLACE`.
+4. Rehearse the reviewed import against a local database with the current migrations and representative existing destination rows, including generated Week 2 history. Use `npx wrangler d1 execute apex-league --local --file path/to/reviewed-data-only.sql`. Compare exact row contents as well as counts by season/week and verify history in the app.
+5. At the coordinated cutover, pause writes **and all settlement entry points on both sites** (cron, scheduled ChatGPT checks, refresh-triggered grading and manual triggers). A write pause alone does not freeze grades. Take fresh source and destination backups, repeat conflict reconciliation, then apply only the reviewed data-only import to the intended remote database.
+6. Before resuming service, compare all four tables against the approved snapshot/reconciliation plan: identifiers, owner/team mappings, exact saved selections, historical odds and provenance, results, actual stats/reasons, round data and usage. Counts alone cannot establish a faithful migration. Verify member history and pending-pick behavior on staging; resume settlement on the new site only after sign-off.
 
-If the dump is unavailable, the fixed 2026 Week 2 backfill (`worker/parlay/week2-backfill.ts`) recreates
-Week 2 on the first settlement run; weeks 3+ would need manual re-entry.
+If the source export is unavailable, stop the cutover and recover the source or its backup.
+The fixed 2026 Week 2 backfill is not a complete history backup and must not substitute for
+saved picks from other weeks. Do not reconstruct missing history by manual re-entry.
 
 ## Cutover checklist
 
 1. Secrets set, CI secrets set, a push to `main` has deployed successfully to the `*.workers.dev` URL. Test login, parlay read, pick save, commissioner PIN there.
-2. Coordinate with Stu: brief write-pause on the old Site, final export, import (above).
+2. Coordinate with Stu: pause writes and settlement on both sites, final backups, reviewed import and validation (above).
 3. DNS is already on Cloudflare. Worker → Settings → Domains & Routes → add `apexleague.bet` and `www.apexleague.bet` (Cloudflare replaces the GitHub Pages records; instant, and removing the domain from the Worker restores them).
 4. Confirm `https://apexleague.bet` serves the new site; then disable GitHub Pages in repo settings and make the repo **private** (`gh repo edit Mr-Coin/apexleague.bet --visibility private`). Not before: Pages needs the repo public, so going private early takes the live site down.
 5. Stu retires the ChatGPT settlement trigger; the Worker cron replaces it. Keep the old Site read-only for a couple of weeks as rollback.
