@@ -24,7 +24,14 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
+      # `npm test` runs with coverage; vitest fails the job below the thresholds in vitest.config.ts.
       - run: npm test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: coverage/lcov.info
+          retention-days: 14
       - run: npm run build
 
   deploy:

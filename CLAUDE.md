@@ -21,6 +21,8 @@ Worker serves the React SPA and the `/api` routes; D1 is the database.
 - `shared/parlay/` pure logic imported by both sides via `#shared/parlay/...`.
 - `migrations/` D1 SQL. Append new files; never edit applied ones.
 - `test/` Vitest. The parlay grading/week/odds suites are the regression net for settlement — keep them green.
+  `npm test` enforces coverage thresholds over `worker/` and `shared/` (see `vitest.config.ts`); new backend
+  code ships with tests. `npm run test:quick` skips coverage while iterating.
 
 ## Rules that matter here
 
