@@ -21,12 +21,21 @@ export default defineConfig(
     extends: [reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
     languageOptions: { globals: globals.browser },
     rules: {
-      "react-refresh/only-export-components": ["error", { allowConstantExport: true, allowExportNames: ["badgeVariants", "buttonVariants"] }],
+      "react-refresh/only-export-components": [
+        "error",
+        { allowConstantExport: true, allowExportNames: ["badgeVariants", "buttonVariants"] },
+      ],
     },
   },
   {
     files: ["worker/**/*.ts", "shared/**/*.ts", "test/**/*.ts"],
+    ignores: ["test/ui/**"],
     languageOptions: { globals: { ...globals.serviceworker, ...globals.es2022 } },
+  },
+  {
+    files: ["test/ui/**/*.{ts,tsx}"],
+    extends: [reactHooks.configs.flat.recommended],
+    languageOptions: { globals: { ...globals.browser, ...globals.es2022 } },
   },
   {
     files: ["*.config.{js,ts}"],
