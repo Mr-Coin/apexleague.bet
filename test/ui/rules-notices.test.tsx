@@ -2,10 +2,11 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import type * as Draft from "@/config/draft";
 import { renderApp } from "./helpers";
 
 vi.mock("@/config/draft", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/config/draft")>();
+  const actual = await importOriginal<typeof Draft>();
   return {
     DRAFT_CONFIG: { ...actual.DRAFT_CONFIG, showDraftNotification: true, showDraftConclusion: true },
   };
