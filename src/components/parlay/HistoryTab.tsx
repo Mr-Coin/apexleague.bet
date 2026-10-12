@@ -3,6 +3,7 @@ import { parlayResult } from "#shared/parlay/model";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { WeeklyLowHistogram } from "./WeeklyLowHistogram";
 import { AllTimeLosers } from "./AllTimeLosers";
 import { Choice } from "./Choice";
 import { resultAccent } from "./format";
@@ -51,6 +52,7 @@ export function HistoryTab({
 
   return (
     <div className="space-y-6">
+      <WeeklyLowHistogram allTime={data?.allTime} busy={busy} />
       <PerformanceHistory performance={data?.performance} busy={busy} />
       <AllTimeLosers allTime={data?.allTime} busy={busy} />
 

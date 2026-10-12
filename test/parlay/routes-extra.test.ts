@@ -27,7 +27,7 @@ const game: Game = {
 const thursday: Game = { ...game, id: "thu", name: "TNF", date: "2026-09-24T23:15:00Z" };
 const early: Game = { ...game, id: "early", name: "London", date: "2026-09-27T13:30:00Z" };
 const league = {
-  peopleVersion: 1,
+  peopleVersion: 2,
   previousSeasons: [2025],
   teams: [
     { id: 901, name: "Team One", personName: "Alex One", ownerKey: "one" },

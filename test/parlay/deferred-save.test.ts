@@ -25,7 +25,7 @@ const game: Game = {
   awayScore: 0,
 };
 const league = {
-  peopleVersion: 1,
+  peopleVersion: 2,
   teams: [
     { id: 901, name: "One" },
     { id: 902, name: "Two" },

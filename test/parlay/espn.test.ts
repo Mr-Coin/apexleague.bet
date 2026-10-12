@@ -185,7 +185,7 @@ describe("league", () => {
       .prepare("INSERT INTO cache(id,data,updated) VALUES(?,?,?)")
       .run(
         "league:2026",
-        JSON.stringify({ peopleVersion: 1, teams: [{ id: 1 }], matchups: [], week: 2 }),
+        JSON.stringify({ peopleVersion: 2, teams: [{ id: 1 }], matchups: [], week: 2 }),
         fixed - 600000,
       );
     expect(await league(bare, 2026)).toMatchObject({ week: 2, stale: true, updated: fixed - 600000 });
@@ -193,7 +193,7 @@ describe("league", () => {
   });
 
   it("serves a fresh snapshot without calling ESPN", async () => {
-    await putCache(db, "league:2026", { peopleVersion: 1, teams: [{ id: 1 }], matchups: [], week: 3 });
+    await putCache(db, "league:2026", { peopleVersion: 2, teams: [{ id: 1 }], matchups: [], week: 3 });
     expect(await league(env, 2026)).toMatchObject({ week: 3, stale: false, updated: fixed });
     expect(calls).toEqual([]);
   });
@@ -226,7 +226,7 @@ describe("league", () => {
       periods: { "1": [1] },
       stale: false,
     });
-    expect((await cached(db, "league:2026"))?.data).toMatchObject({ peopleVersion: 1 });
+    expect((await cached(db, "league:2026"))?.data).toMatchObject({ peopleVersion: 2 });
   });
 
   it("refreshes a snapshot from an older people version", async () => {
@@ -249,7 +249,7 @@ describe("league", () => {
       .prepare("INSERT INTO cache(id,data,updated) VALUES(?,?,?)")
       .run(
         "league:2025",
-        JSON.stringify({ peopleVersion: 1, teams: [{ id: 1 }], matchups: [], week: 17 }),
+        JSON.stringify({ peopleVersion: 2, teams: [{ id: 1 }], matchups: [], week: 17 }),
         fixed - 2 * 86400000,
       );
     provider = down;

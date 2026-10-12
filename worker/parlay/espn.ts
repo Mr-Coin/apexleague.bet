@@ -65,7 +65,7 @@ const EMPTY_LEAGUE: LeagueData = { teams: [], matchups: [], week: null };
 export async function league(env: AppEnv, season: number): Promise<LeagueState> {
   const key = "league:" + season,
     old = await cached<LeagueData>(env.DB, key);
-  if (old && old.data.peopleVersion === 1 && Date.now() - old.updated < (season < seasonNow() ? 86400000 : 120000))
+  if (old && old.data.peopleVersion === 2 && Date.now() - old.updated < (season < seasonNow() ? 86400000 : 120000))
     return { ...old.data, updated: old.updated, stale: false };
   if (!env.ESPN_S2 || !env.ESPN_SWID)
     return {
@@ -104,7 +104,8 @@ export async function league(env: AppEnv, season: number): Promise<LeagueState> 
     }));
     if (!teams.length) throw new Error("No teams returned");
     const data: LeagueData = {
-      peopleVersion: 1,
+      peopleVersion: 2,
+      regularSeasonWeeks: d.settings?.scheduleSettings?.matchupPeriodCount,
       previousSeasons: (d.status?.previousSeasons || []).filter(
         (y): y is number => Number.isInteger(y) && (y as number) >= 2018 && (y as number) < season,
       ),
