@@ -31,6 +31,7 @@ export interface Matchup {
 }
 
 export interface LeagueData {
+  regularSeasonWeeks?: number;
   peopleVersion?: number;
   previousSeasons?: number[];
   teams: LeagueTeam[];
@@ -72,7 +73,7 @@ export interface EspnLeagueResponse {
     latestScoringPeriod?: number;
   };
   scoringPeriodId?: number;
-  settings?: { scheduleSettings?: { matchupPeriods?: Record<string, number[]> } };
+  settings?: { scheduleSettings?: { matchupPeriods?: Record<string, number[]>; matchupPeriodCount?: number } };
 }
 
 // ---------- NFL scoreboard / box score (ESPN site API) ----------

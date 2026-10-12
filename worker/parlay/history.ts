@@ -44,6 +44,33 @@ export function lowFinishes(l: LeagueState, season: number): LowFinish[] {
   return records;
 }
 
+/** Only complete, single-week regular-season matchups enter the distribution. */
+export function regularSeasonLows(l: LeagueState, season: number): LowFinish[] {
+  if (!Number.isInteger(l.regularSeasonWeeks) || l.regularSeasonWeeks! < 1) return [];
+  return lowFinishes(l, season).filter((r) => r.week <= l.regularSeasonWeeks!);
+}
+
+export function currentLow(l: LeagueState, season: number): LowFinish | null {
+  if (!l.week || !l.regularSeasonWeeks || l.week > l.regularSeasonWeeks || l.error || l.stale) return null;
+  const periods = l.periods?.[String(l.week)];
+  if (periods?.length !== 1 || periods[0] !== l.scoringPeriod) return null;
+  const scores = new Map<number, number>();
+  for (const m of l.matchups.filter((m) => m.week === l.week))
+    for (const t of [m.home, m.away]) if (t && Number.isFinite(t.score)) scores.set(t.id, t.score);
+  if (!l.teams.length || scores.size !== l.teams.length || [...scores.values()].every((s) => s === 0)) return null;
+  const score = Math.min(...scores.values());
+  const people = [...scores]
+    .filter(([, value]) => value === score)
+    .map(([id]) => {
+      const t = l.teams.find((t) => t.id === id)!;
+      return { key: t.ownerKey, name: t.personName || t.name };
+    });
+  return { season, week: l.week, score, people, tie: people.length > 1 };
+}
+
+type PublicLowFinish = Omit<LowFinish, "people"> & { people: { name: string }[] };
+const publicLow = (r: LowFinish): PublicLowFinish => ({ ...r, people: r.people.map((p) => ({ name: p.name })) });
+
 export interface AllTimeLeader {
   name: string;
   lowWeeks: number;
@@ -52,6 +79,9 @@ export interface AllTimeLeader {
 }
 
 export interface AllTime {
+  weeklyLows: PublicLowFinish[];
+  currentLow: PublicLowFinish | null;
+  histogramUnavailable: number[];
   leaders: AllTimeLeader[];
   weeks: number;
   seasons: number[];
@@ -75,6 +105,14 @@ export async function allTime(env: AppEnv, current: LeagueState): Promise<AllTim
       people.set(p.key, row);
     }
   return {
+    weeklyLows: leagues
+      .filter((x) => !x.data.error && !x.data.stale)
+      .flatMap((x) => regularSeasonLows(x.data, x.year))
+      .map(publicLow),
+    currentLow: currentLow(current, year) ? publicLow(currentLow(current, year)!) : null,
+    histogramUnavailable: leagues
+      .filter((x) => x.data.error || x.data.stale || !x.data.regularSeasonWeeks)
+      .map((x) => x.year),
     leaders: [...people.values()].sort((a, b) => b.lowWeeks - a.lowWeeks || a.lowest - b.lowest),
     weeks: records.length,
     seasons: leagues.filter((x) => x.data.teams.length && !x.data.error).map((x) => x.year),

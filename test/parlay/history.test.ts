@@ -20,6 +20,7 @@ const state = (over: Partial<LeagueState>): LeagueState => ({
     { id: 2, week: 2, home: { id: 1, score: 95 }, away: { id: 2, score: 70 } },
     { id: 3, week: 3, home: { id: 1, score: 50 }, away: { id: 2, score: 60 } },
   ],
+  regularSeasonWeeks: 14,
   week: 3,
   scoringPeriod: 3,
   periods: { "1": [1], "2": [2], "3": [3] },
@@ -92,7 +93,7 @@ describe("lowFinishes", () => {
 describe("allTime", () => {
   it("merges the current league with cached previous seasons and lists unavailable ones", async () => {
     await putCache(db, "league:2025", {
-      peopleVersion: 1,
+      peopleVersion: 2,
       teams: [
         { id: 5, ownerKey: "a", personName: "Alex (2025)", name: "Old" },
         { id: 6, ownerKey: "c", name: "C" },

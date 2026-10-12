@@ -46,7 +46,7 @@ beforeEach(async () => {
   vi.useFakeTimers({ now: beforeKickoff, toFake: ["Date"] });
   db.sql.exec("DELETE FROM picks; DELETE FROM cache;");
   vi.stubGlobal("fetch", async () => new Response("Forbidden", { status: 403 }));
-  await putCache(db, "league:2026", { peopleVersion: 1, teams: [{ id: 901, name: "One" }], matchups: [], week: 3 });
+  await putCache(db, "league:2026", { peopleVersion: 2, teams: [{ id: 901, name: "One" }], matchups: [], week: 3 });
 });
 afterAll(() => {
   vi.unstubAllGlobals();

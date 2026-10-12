@@ -20,7 +20,7 @@ const game: Game = {
   awayScore: 0,
 };
 const league = {
-  peopleVersion: 1,
+  peopleVersion: 2,
   previousSeasons: [2025],
   teams: [
     { id: 901, name: "Team One", personName: "Alex One", ownerKey: "one" },

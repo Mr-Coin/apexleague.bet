@@ -89,7 +89,18 @@ export interface LowFinishLeader {
   lowest: number;
 }
 
+export interface WeeklyLow {
+  season: number;
+  week: number;
+  score: number;
+  tie: boolean;
+  people: { name: string }[];
+}
+
 export interface AllTime {
+  weeklyLows?: WeeklyLow[];
+  currentLow?: WeeklyLow | null;
+  histogramUnavailable?: number[];
   leaders: LowFinishLeader[];
   weeks: number;
   seasons: number[];
